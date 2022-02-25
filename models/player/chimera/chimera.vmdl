@@ -74,21 +74,6 @@
 				default_root_bone_name = ""
 			},
 			{
-				_class = "AttachmentList"
-				children = 
-				[
-					{
-						_class = "Attachment"
-						name = "button_attachment"
-						parent_bone = "button"
-						relative_origin = [ 0.0, 0.0, 0.0 ]
-						relative_angles = [ 0.0, 0.0, 0.0 ]
-						weight = 1.0
-						ignore_rotation = false
-					},
-				]
-			},
-			{
 				_class = "HitboxSetList"
 				children = 
 				[
@@ -97,6 +82,26 @@
 						name = "hitboxes"
 						children = 
 						[
+							{
+								_class = "Hitbox"
+								name = "button"
+								parent_bone = "button"
+								surface_property = ""
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -3.06225, -8.126955, -7.580229 ]
+								hitbox_maxs = [ 7.931185, 7.281586, 7.793739 ]
+							},
+							{
+								_class = "Hitbox"
+								name = "stgnewporkultimatechimera_hipn"
+								parent_bone = "stgnewporkultimatechimera_hipn"
+								surface_property = ""
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -20.64435, -6.521408, -19.017906 ]
+								hitbox_maxs = [ 20.64432, 16.926973, 14.150055 ]
+							},
 							{
 								_class = "Hitbox"
 								name = "stgnewporkultimatechimera_waistn"
@@ -119,13 +124,13 @@
 							},
 							{
 								_class = "Hitbox"
-								name = "button"
-								parent_bone = "button"
+								name = "stgnewporkultimatechimera_jmouthn"
+								parent_bone = "stgnewporkultimatechimera_jmouthn"
 								surface_property = ""
 								translation_only = false
 								group_id = 0
-								hitbox_mins = [ -2.54566, -4.690403, -4.695625 ]
-								hitbox_maxs = [ 7.432482, 4.771349, 4.695641 ]
+								hitbox_mins = [ -25.399702, -33.180168, -19.755428 ]
+								hitbox_maxs = [ 25.399679, 14.993286, 38.268162 ]
 							},
 							{
 								_class = "Hitbox"
@@ -146,6 +151,16 @@
 								group_id = 0
 								hitbox_mins = [ -19.378393, -17.007324, -20.621164 ]
 								hitbox_maxs = [ 0.5, 5.022198, 0.68544 ]
+							},
+							{
+								_class = "Hitbox"
+								name = "stgnewporkultimatechimera_agon"
+								parent_bone = "stgnewporkultimatechimera_agon"
+								surface_property = ""
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -22.293467, -36.266552, -11.816635 ]
+								hitbox_maxs = [ 22.29344, 0.5, 17.875584 ]
 							},
 							{
 								_class = "Hitbox"

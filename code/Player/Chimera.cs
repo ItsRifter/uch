@@ -7,13 +7,18 @@ partial class PlayerBase
 
 	public void SpawnAsChimera()
 	{
+
 		CurrentTeam = TeamEnum.Chimera;
+
+		//SetModel( "models/citizen/citizen.vmdl" );
 		SetModel( "models/player/chimera/chimera.vmdl" );
-		CameraMode = new ThirdPersonCamera();
+
+		CameraMode = new ChimeraCamera();
 
 		timeLastBite = 0;
 
 		ActiveChimera = true;
+		EnableHitboxes = true;
 
 		EnableAllCollisions = true;
 		EnableDrawing = true;
@@ -24,13 +29,15 @@ partial class PlayerBase
 	//When the button on the chimera's back is pressed, turn off the chimera
 	public void BackButtonPressed()
 	{
+		Sound.FromEntity( "button_press", this);
 		ActiveChimera = false;
-		base.OnKilled();
+		EnableAllCollisions = false;
+		OnKilled();
 	}
 
 	public bool CanBite()
 	{
-		if ( timeLastBite >= 1.25f )
+		if ( timeLastBite >= 1.25f && GroundEntity != null)
 			return true;
 
 		return false;
@@ -43,11 +50,10 @@ partial class PlayerBase
 			.Ignore( this )
 			.Run();
 
-		DebugOverlay.Line( tr.StartPosition, tr.EndPosition, 5f );
-
-		PlaySound( "bite" );
+		Sound.FromEntity( "bite", this);
 
 		timeLastBite = 0;
+		CanMove = false;
 
 		if (tr.Entity is PlayerBase player)
 		{

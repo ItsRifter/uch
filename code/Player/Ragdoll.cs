@@ -23,7 +23,7 @@ partial class PlayerBase
 		ent.EnableAllCollisions = true;
 		ent.SurroundingBoundsMode = SurroundingBoundsType.Physics;
 		ent.RenderColor = RenderColor;
-		//ent.PhysicsGroup.Velocity = velocity;
+		ent.PhysicsGroup.Velocity = velocity;
 
 		ent.SetInteractsAs( CollisionLayer.Debris );
 		ent.SetInteractsWith( CollisionLayer.WORLD_GEOMETRY );

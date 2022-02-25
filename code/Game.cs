@@ -31,6 +31,10 @@ public partial class Game : Sandbox.Game
 		oldHud = new Hud();
 	}
 
+	public override void DoPlayerSuicide( Client cl )
+	{
+	}
+
 	public override void ClientJoined( Client client )
 	{
 		base.ClientJoined( client );
@@ -42,13 +46,28 @@ public partial class Game : Sandbox.Game
 
 		if(Client.All.Count >= 2)
 			StartGame();
-		else if (Client.All.Count < 2)
-			StopGame();
+	}
+
+	private void PlayMusic()
+	{
+		using ( Prediction.Off() )
+		{
+			foreach ( var client in Client.All )
+			{
+				if ( client is PlayerBase player )
+				{
+					player.PlaySoundToClient( To.Single( player ), "music" );
+				}
+			}
+		}
 	}
 
 	public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )
 	{
 		base.ClientDisconnect( cl, reason );
+
+		if ( Client.All.Count < 2 )
+			StopGame();
 
 		CheckRoundStatus();
 	}

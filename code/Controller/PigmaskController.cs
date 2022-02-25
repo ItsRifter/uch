@@ -11,14 +11,14 @@ public partial class PigmaskController : BasePlayerController
 	[Net] public float FallSoundZ { get; set; } = -30.0f;
 	[Net] public float GroundFriction { get; set; } = 4.0f;
 	[Net] public float StopSpeed { get; set; } = 100.0f;
-	[Net] public float Size { get; set; } = 20.0f;
+	[Net] public float Size { get; set; } = 10.0f;
 	[Net] public float DistEpsilon { get; set; } = 0.03125f;
 	[Net] public float GroundAngle { get; set; } = 46.0f;
 	[Net] public float Bounce { get; set; } = 0.0f;
 	[Net] public float MoveFriction { get; set; } = 1.0f;
 	[Net] public float StepSize { get; set; } = 18.0f;
 	[Net] public float MaxNonJumpVelocity { get; set; } = 140.0f;
-	[Net] public float BodyGirth { get; set; } = 32.0f;
+	[Net] public float BodyGirth { get; set; } = 16.0f;
 	[Net] public float BodyHeight { get; set; } = 72.0f;
 	[Net] public float EyeHeight { get; set; } = 52.0f;
 	[Net] public float Gravity { get; set; } = 800.0f;

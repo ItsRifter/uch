@@ -11,6 +11,8 @@ public partial class PlayerBase : Sandbox.Player
 
 	private DamageInfo lastDamage;
 
+	private Sound currentSound;
+
 	public enum TeamEnum
 	{
 		Spectator,
@@ -37,17 +39,21 @@ public partial class PlayerBase : Sandbox.Player
 		EnableHideInFirstPerson = true;
 		EnableShadowInFirstPerson = true;
 
+		StopSoundOnClient( To.Single( this ) );
+
 		base.Respawn();
 	}
 
 	public override void Simulate( Client cl )
 	{
-		if(IsServer)
-			DoInputControls();
+		DoInputControls();
 
 		TickPlayerUse();
 
 		if ( !CanMove ) return;
+
+		if ( LifeState == LifeState.Dead && CurrentTeam == TeamEnum.Chimera )
+			return;
 
 		base.Simulate( cl );
 		SimulateActiveChild( cl, ActiveChild );
@@ -67,47 +73,57 @@ public partial class PlayerBase : Sandbox.Player
 				IsTaunting = false;
 				CanMove = true;
 			}
+
+			//Use key or Mouse 1 on Chimera's button
+			if ( Input.Pressed( InputButton.Use ) || Input.Pressed( InputButton.Attack1 ) )
+			{
+				var tr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 90 )
+				.Size( 2 )
+				.Ignore( this )
+				.UseHitboxes( true )
+				.Run();
+
+				Log.Info( tr.HitboxIndex );
+
+				if ( tr.Entity is PlayerBase player )
+					if ( player.CurrentTeam == TeamEnum.Chimera && player.ActiveChimera )
+						//Button bone
+						if ( tr.HitboxIndex == 0 )
+						{
+							player.BackButtonPressed();
+							Rankup();
+						}
+			}
 		} 
-		else if ( CurrentTeam == TeamEnum.Chimera )
+		else if ( CurrentTeam == TeamEnum.Chimera && ActiveChimera )
 		{
 			if ( Input.Pressed( InputButton.Attack1 ) && CanBite() )
 				Bite();
+
+			if ( !CanMove && timeLastBite > 1.25f )
+				CanMove = true;
 		}
-
-		//Use key on Chimera's button
-		if ( Input.Pressed( InputButton.Use ) )
-		{
-			var tr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 125 )
-			.Size( 2 )
-			.Ignore( this )
-			.Run();
-
-			DebugOverlay.Line( tr.StartPosition, tr.EndPosition, 5f );
-
-			if ( tr.Entity is PlayerBase player )
-			{
-				if ( player.CurrentTeam == TeamEnum.Chimera )
-				{
-					Log.Info( tr.HitboxIndex );
-				}
-			}
-		}
-
 	}
 
 	[ClientRpc]
 	private void PlaySoundToClient(string soundPath)
 	{
-		PlaySound( soundPath );
+		currentSound = Sound.FromScreen( soundPath );
+	}
+
+	[ClientRpc]
+	private void StopSoundOnClient()
+	{
+		currentSound.Stop();
 	}
 
 	public override void TakeDamage( DamageInfo info )
 	{
 		lastPos = Position;
 
-		PlaySound( "pig_die" );
+		Sound.FromEntity( "pig_die", this);
 
-		BecomeRagdollOnClient( Velocity, lastDamage.Flags, lastDamage.Position, lastDamage.Force, GetHitboxBone( lastDamage.HitboxIndex ) );
+		BecomeRagdollOnClient(Velocity, 0, Position, 0, 0);
 
 		base.TakeDamage( info );
 	}
@@ -116,8 +132,11 @@ public partial class PlayerBase : Sandbox.Player
 	{
 		base.OnKilled();
 
-		SpawnAsGhostAtLocation( lastPos );
-		ResetRank();
+		if ( CurrentTeam == TeamEnum.Pigmask )
+		{
+			SpawnAsGhostAtLocation( lastPos );
+			ResetRank();
+		}
 
 		Event.Run( "evnt_roundstatus" );
 

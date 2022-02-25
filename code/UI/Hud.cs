@@ -9,6 +9,7 @@ public partial class Hud : Sandbox.HudEntity<RootPanel>
 			RootPanel.SetTemplate( "/minimalhud.html" );
 
 			RootPanel.AddChild<ChatBox>();
+			RootPanel.AddChild<Scoreboard<ScoreboardEntry>>();
 		}
 	}
 }

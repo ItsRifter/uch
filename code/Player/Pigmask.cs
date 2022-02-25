@@ -49,6 +49,7 @@ partial class PlayerBase
 			SetModel( "models/player/pigmask/pigmask_colonel.vmdl" );
 			spawnSound = "colonel_spawn";
 		}
+
 		using ( Prediction.Off() )
 			PlaySoundToClient( To.Single( this ), spawnSound );
 	}

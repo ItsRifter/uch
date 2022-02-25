@@ -1,0 +1,43 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	data = 
+	{
+		sounds = 
+		[
+			"sounds/raw/music/music1.vsnd",
+			"sounds/raw/music/music2.vsnd",
+			"sounds/raw/music/music3.vsnd",
+			"sounds/raw/music/music4.vsnd",
+			"sounds/raw/music/music5.vsnd",
+			"sounds/raw/music/music6.mp3",
+			"sounds/raw/music/music7.mp3",
+			"sounds/raw/music/music8.mp3",
+			"sounds/raw/music/music9.mp3",
+			"sounds/raw/music/music10.mp3",
+			"sounds/raw/music/music11.mp3",
+			"sounds/raw/music/music12.mp3",
+			"sounds/raw/music/music13.mp3",
+			"sounds/raw/music/music14.mp3",
+			"sounds/raw/music/music15.mp3",
+			"sounds/raw/music/music16.mp3",
+			"sounds/raw/music/music17.mp3",
+			"sounds/raw/music/music18.mp3",
+			"sounds/raw/music/music19.mp3",
+			"sounds/raw/music/music20.mp3",
+			"sounds/raw/music/music21.mp3",
+			"sounds/raw/music/music22.mp3",
+			"sounds/raw/music/music23.mp3",
+			"sounds/raw/music/music24.mp3",
+			"sounds/raw/music/music25.mp3",
+			"sounds/raw/music/music26.mp3",
+			"sounds/raw/music/music27.mp3",
+		]
+		ui = true
+		volume = 1.0
+		volumerandom = 0.0
+		pitch = 1.0
+		pitchrandom = 0.0
+		distancemax = 2000.0
+		selectionmode = "3"
+	}
+}
