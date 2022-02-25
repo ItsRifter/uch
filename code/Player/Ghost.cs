@@ -8,11 +8,12 @@ partial class PlayerBase
 		SetModel( "models/player/ghost/ghost.vmdl" );
 
 		Controller = new GhostController();
-	
+		CameraMode = new FirstPersonCamera();
+
 		EnableAllCollisions = false;
-		EnableDrawing = true;
+		EnableDrawing = false;
 		EnableHideInFirstPerson = true;
-		EnableShadowInFirstPerson = false;
+		EnableShadowInFirstPerson = true;
 	}
 
 	public void SpawnAsGhostAtLocation(Vector3 location)

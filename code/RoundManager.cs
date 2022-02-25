@@ -21,6 +21,8 @@ public partial class Game
 	[Event("startgame")]
 	public void StartGame()
 	{
+		if ( CurrentRoundStatus != RoundEnum.Idle ) return;
+
 		Log.Info( "Game is starting" );
 		CurrentRoundStatus = RoundEnum.Starting;
 		timeTillUpdate = 0;
@@ -77,7 +79,10 @@ public partial class Game
 		foreach ( var client in Client.All )
 		{
 			if ( client.Pawn is PlayerBase player )
+			{
 				player.SpawnAsGhost();
+				player.Respawn();
+			}
 		}
 	}
 

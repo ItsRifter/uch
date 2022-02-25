@@ -67,10 +67,30 @@ public partial class PlayerBase : Sandbox.Player
 				IsTaunting = false;
 				CanMove = true;
 			}
-		} else if ( CurrentTeam == TeamEnum.Chimera )
+		} 
+		else if ( CurrentTeam == TeamEnum.Chimera )
 		{
 			if ( Input.Pressed( InputButton.Attack1 ) && CanBite() )
 				Bite();
+		}
+
+		//Use key on Chimera's button
+		if ( Input.Pressed( InputButton.Use ) )
+		{
+			var tr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 125 )
+			.Size( 2 )
+			.Ignore( this )
+			.Run();
+
+			DebugOverlay.Line( tr.StartPosition, tr.EndPosition, 5f );
+
+			if ( tr.Entity is PlayerBase player )
+			{
+				if ( player.CurrentTeam == TeamEnum.Chimera )
+				{
+					Log.Info( tr.HitboxIndex );
+				}
+			}
 		}
 
 	}

@@ -73,6 +73,224 @@
 				]
 				default_root_bone_name = ""
 			},
+			{
+				_class = "AttachmentList"
+				children = 
+				[
+					{
+						_class = "Attachment"
+						name = "button_attachment"
+						parent_bone = "button"
+						relative_origin = [ 0.0, 0.0, 0.0 ]
+						relative_angles = [ 0.0, 0.0, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+				]
+			},
+			{
+				_class = "HitboxSetList"
+				children = 
+				[
+					{
+						_class = "HitboxSet"
+						name = "hitboxes"
+						children = 
+						[
+							{
+								_class = "Hitbox"
+								name = "stgnewporkultimatechimera_waistn"
+								parent_bone = "stgnewporkultimatechimera_waistn"
+								surface_property = ""
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -24.903191, -27.363598, -19.200565 ]
+								hitbox_maxs = [ 24.903168, 15.24915, 16.773434 ]
+							},
+							{
+								_class = "Hitbox"
+								name = "stgnewporkultimatechimera_headn"
+								parent_bone = "stgnewporkultimatechimera_headn"
+								surface_property = ""
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -25.399702, -53.327065, -9.698594 ]
+								hitbox_maxs = [ 25.399679, 9.046753, 26.008385 ]
+							},
+							{
+								_class = "Hitbox"
+								name = "button"
+								parent_bone = "button"
+								surface_property = ""
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -2.54566, -4.690403, -4.695625 ]
+								hitbox_maxs = [ 7.432482, 4.771349, 4.695641 ]
+							},
+							{
+								_class = "Hitbox"
+								name = "stgnewporkultimatechimera_lwingna"
+								parent_bone = "stgnewporkultimatechimera_lwingna"
+								surface_property = ""
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -0.5, -5.022268, -0.68544 ]
+								hitbox_maxs = [ 19.378441, 17.007214, 20.621071 ]
+							},
+							{
+								_class = "Hitbox"
+								name = "stgnewporkultimatechimera_rwingna"
+								parent_bone = "stgnewporkultimatechimera_rwingna"
+								surface_property = ""
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -19.378393, -17.007324, -20.621164 ]
+								hitbox_maxs = [ 0.5, 5.022198, 0.68544 ]
+							},
+							{
+								_class = "Hitbox"
+								name = "stgnewporkultimatechimera_lshoulderj"
+								parent_bone = "stgnewporkultimatechimera_lshoulderj"
+								surface_property = ""
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -6.104887, -6.77879, -10.694593 ]
+								hitbox_maxs = [ 8.017349, 6.007197, 2.915411 ]
+							},
+							{
+								_class = "Hitbox"
+								name = "stgnewporkultimatechimera_larmj"
+								parent_bone = "stgnewporkultimatechimera_larmj"
+								surface_property = ""
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -6.786743, -10.482753, -5.748863 ]
+								hitbox_maxs = [ 8.017349, 6.557059, 3.019966 ]
+							},
+							{
+								_class = "Hitbox"
+								name = "stgnewporkultimatechimera_rshoulderj"
+								parent_bone = "stgnewporkultimatechimera_rshoulderj"
+								surface_property = ""
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -8.017412, -6.007199, -2.915393 ]
+								hitbox_maxs = [ 6.104863, 6.778784, 10.694589 ]
+							},
+							{
+								_class = "Hitbox"
+								name = "stgnewporkultimatechimera_rarmj"
+								parent_bone = "stgnewporkultimatechimera_rarmj"
+								surface_property = ""
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -8.017412, -6.557055, -3.019971 ]
+								hitbox_maxs = [ 6.786717, 10.482747, 5.748864 ]
+							},
+							{
+								_class = "Hitbox"
+								name = "stgnewporkultimatechimera_llegj"
+								parent_bone = "stgnewporkultimatechimera_llegj"
+								surface_property = ""
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -7.369149, -7.212108, -14.511522 ]
+								hitbox_maxs = [ 7.976645, 9.092231, 9.615168 ]
+							},
+							{
+								_class = "Hitbox"
+								name = "stgnewporkultimatechimera_lkneej"
+								parent_bone = "stgnewporkultimatechimera_lkneej"
+								surface_property = ""
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -5.16851, -7.750112, -7.161826 ]
+								hitbox_maxs = [ 7.976645, 10.534739, 3.372705 ]
+							},
+							{
+								_class = "Hitbox"
+								name = "stgnewporkultimatechimera_lfootj"
+								parent_bone = "stgnewporkultimatechimera_lfootj"
+								surface_property = ""
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -5.76537, -8.480526, -9.748225 ]
+								hitbox_maxs = [ 6.06282, 5.221094, 0.5 ]
+							},
+							{
+								_class = "Hitbox"
+								name = "stgnewporkultimatechimera_rlegj"
+								parent_bone = "stgnewporkultimatechimera_rlegj"
+								surface_property = ""
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -7.976704, -9.092216, -9.615166 ]
+								hitbox_maxs = [ 7.369114, 7.212107, 14.51152 ]
+							},
+							{
+								_class = "Hitbox"
+								name = "stgnewporkultimatechimera_rkneej"
+								parent_bone = "stgnewporkultimatechimera_rkneej"
+								surface_property = ""
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -7.976704, -10.534747, -3.372704 ]
+								hitbox_maxs = [ 5.168474, 7.750108, 7.161824 ]
+							},
+							{
+								_class = "Hitbox"
+								name = "stgnewporkultimatechimera_rfootj"
+								parent_bone = "stgnewporkultimatechimera_rfootj"
+								surface_property = ""
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -6.062853, -5.342681, -0.5 ]
+								hitbox_maxs = [ 5.765338, 8.480553, 9.748225 ]
+							},
+							{
+								_class = "Hitbox"
+								name = "stgnewporkultimatechimera_tailna"
+								parent_bone = "stgnewporkultimatechimera_tailna"
+								surface_property = ""
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -2.296173, -0.5, -2.415359 ]
+								hitbox_maxs = [ 2.29614, 17.713215, 1.96608 ]
+							},
+							{
+								_class = "Hitbox"
+								name = "stgnewporkultimatechimera_tailnb"
+								parent_bone = "stgnewporkultimatechimera_tailnb"
+								surface_property = ""
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -1.842563, -0.5, -1.826881 ]
+								hitbox_maxs = [ 1.842531, 27.092722, 1.858238 ]
+							},
+							{
+								_class = "Hitbox"
+								name = "stgnewporkultimatechimera_tailnc"
+								parent_bone = "stgnewporkultimatechimera_tailnc"
+								surface_property = ""
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -1.681891, -0.5, -1.66592 ]
+								hitbox_maxs = [ 1.681853, 25.756096, 1.697598 ]
+							},
+							{
+								_class = "Hitbox"
+								name = "stgnewporkultimatechimera_tailnd"
+								parent_bone = "stgnewporkultimatechimera_tailnd"
+								surface_property = ""
+								translation_only = false
+								group_id = 0
+								hitbox_mins = [ -1.828253, -0.5, -1.985283 ]
+								hitbox_maxs = [ 1.828215, 17.19389, 2.01664 ]
+							},
+						]
+					},
+				]
+			},
 		]
 		model_archetype = ""
 		primary_associated_entity = ""

@@ -44,6 +44,12 @@ public partial class Game : Sandbox.Game
 			StartGame();
 		else if (Client.All.Count < 2)
 			StopGame();
-		
+	}
+
+	public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )
+	{
+		base.ClientDisconnect( cl, reason );
+
+		CheckRoundStatus();
 	}
 }

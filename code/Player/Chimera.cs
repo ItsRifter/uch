@@ -9,6 +9,7 @@ partial class PlayerBase
 	{
 		CurrentTeam = TeamEnum.Chimera;
 		SetModel( "models/player/chimera/chimera.vmdl" );
+		CameraMode = new ThirdPersonCamera();
 
 		timeLastBite = 0;
 
@@ -17,7 +18,7 @@ partial class PlayerBase
 		EnableAllCollisions = true;
 		EnableDrawing = true;
 		EnableHideInFirstPerson = true;
-		EnableShadowInFirstPerson = false;
+		EnableShadowInFirstPerson = true;		
 	}
 
 	//When the button on the chimera's back is pressed, turn off the chimera
@@ -37,10 +38,12 @@ partial class PlayerBase
 
 	public void Bite()
 	{
-		var tr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 50 )
+		var tr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 95 )
 			.Size( 10 )
 			.Ignore( this )
 			.Run();
+
+		DebugOverlay.Line( tr.StartPosition, tr.EndPosition, 5f );
 
 		PlaySound( "bite" );
 

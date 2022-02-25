@@ -19,11 +19,13 @@ partial class PlayerBase
 		CurrentTeam = TeamEnum.Pigmask;
 
 		Controller = new PigmaskController();
+		CameraMode = new FirstPersonCamera();
+
 
 		EnableAllCollisions = true;
 		EnableDrawing = true;
 		EnableHideInFirstPerson = true;
-		EnableShadowInFirstPerson = false;
+		EnableShadowInFirstPerson = true;
 
 		string spawnSound = "ensign_spawn";
 
