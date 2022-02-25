@@ -1,0 +1,13 @@
+{
+  "Title": "Ultimate Chimera Hunt Enlisted",
+  "Type": "game",
+  "Org": "rifter",
+  "Ident": "ultimate_chimera_hunt_enlisted",
+  "Schema": 1,
+  "HasAssets": true,
+  "AssetsPath": "",
+  "ResourcePaths": null,
+  "HasCode": true,
+  "CodePath": "/code/",
+  "RootNamespace": "Sandbox"
+}
