@@ -5,9 +5,8 @@ using System.Collections.Generic;
 public partial class Game
 {
 	private TimeSince timeTillUpdate;
-	private TimeSince roundTimer;
+	public static TimeSince roundTimer;
 	private PlayerBase lastChimera;
-
 
 	public enum RoundEnum
 	{
@@ -159,7 +158,7 @@ public partial class Game
 					using(Prediction.Off())
 					{
 						if ( player.CurrentTeam == PlayerBase.TeamEnum.Pigmask || player.CurrentTeam == PlayerBase.TeamEnum.Spectator )
-							player.PlaySoundToClient( To.Single( player ), ( "pig_lose" ) );
+							player.PlaySoundToClient( To.Single( player ), "pig_lose" );
 						else if ( player.CurrentTeam == PlayerBase.TeamEnum.Chimera )
 							player.PlaySoundToClient( To.Single( player ), "chimera_win" );
 					}

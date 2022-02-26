@@ -32,9 +32,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Program Files (x86)\\Steam\\steamapps\\common\\sbox\\addons\\uch\\code\\ultimate_chimera_hunt_enlisted.csproj",
-      "projectName": "ultimate_chimera_hunt_enlisted",
-      "projectPath": "D:\\Program Files (x86)\\Steam\\steamapps\\common\\sbox\\addons\\uch\\code\\ultimate_chimera_hunt_enlisted.csproj",
+      "projectUniqueName": "D:\\Program Files (x86)\\Steam\\steamapps\\common\\sbox\\addons\\uch\\code\\uch_enlisted.csproj",
+      "projectName": "uch_enlisted",
+      "projectPath": "D:\\Program Files (x86)\\Steam\\steamapps\\common\\sbox\\addons\\uch\\code\\uch_enlisted.csproj",
       "packagesPath": "C:\\Users\\d_tho\\.nuget\\packages\\",
       "outputPath": "D:\\Program Files (x86)\\Steam\\steamapps\\common\\sbox\\addons\\uch\\code\\obj\\",
       "projectStyle": "PackageReference",

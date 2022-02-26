@@ -25,7 +25,7 @@ public partial class PlayerBase : Sandbox.Player
 	public void InitialSpawn()
 	{
 		SpawnAsGhost();
-		
+
 		Animator = new UCHAnimator();
 		CameraMode = new FirstPersonCamera();
 
@@ -40,6 +40,7 @@ public partial class PlayerBase : Sandbox.Player
 		EnableShadowInFirstPerson = true;
 
 		StopSoundOnClient( To.Single( this ) );
+		CanMove = true;
 
 		base.Respawn();
 	}
@@ -47,16 +48,14 @@ public partial class PlayerBase : Sandbox.Player
 	public override void Simulate( Client cl )
 	{
 		DoInputControls();
-
 		TickPlayerUse();
 
 		if ( !CanMove ) return;
-
 		if ( LifeState == LifeState.Dead && CurrentTeam == TeamEnum.Chimera )
 			return;
 
-		base.Simulate( cl );
-		SimulateActiveChild( cl, ActiveChild );
+		var controller = GetActiveController();
+		controller?.Simulate( cl, this, GetActiveAnimator() );
 	}
 
 	private void DoInputControls()
@@ -83,8 +82,6 @@ public partial class PlayerBase : Sandbox.Player
 				.UseHitboxes( true )
 				.Run();
 
-				Log.Info( tr.HitboxIndex );
-
 				if ( tr.Entity is PlayerBase player )
 					if ( player.CurrentTeam == TeamEnum.Chimera && player.ActiveChimera )
 						//Button bone
@@ -92,9 +89,12 @@ public partial class PlayerBase : Sandbox.Player
 						{
 							player.BackButtonPressed();
 							Rankup();
+							using ( Prediction.Off() )
+								Sound.FromEntity("button_press", this);
 						}
 			}
-		} 
+		}
+		//Chimera Controls
 		else if ( CurrentTeam == TeamEnum.Chimera && ActiveChimera )
 		{
 			if ( Input.Pressed( InputButton.Attack1 ) && CanBite() )
@@ -103,6 +103,12 @@ public partial class PlayerBase : Sandbox.Player
 			if ( !CanMove && timeLastBite > 1.25f )
 				CanMove = true;
 		}
+	}
+
+	[ClientRpc]
+	private void PlayAnimationsOnClient(string anim, bool active)
+	{
+		SetAnimParameter( anim, active );
 	}
 
 	[ClientRpc]
@@ -119,12 +125,6 @@ public partial class PlayerBase : Sandbox.Player
 
 	public override void TakeDamage( DamageInfo info )
 	{
-		lastPos = Position;
-
-		Sound.FromEntity( "pig_die", this);
-
-		BecomeRagdollOnClient(Velocity, 0, Position, 0, 0);
-
 		base.TakeDamage( info );
 	}
 
@@ -132,8 +132,12 @@ public partial class PlayerBase : Sandbox.Player
 	{
 		base.OnKilled();
 
+		lastPos = Position;
+		BecomeRagdollOnClient( Velocity, 0, Position, new Vector3(25, 0), 0 );
+
 		if ( CurrentTeam == TeamEnum.Pigmask )
 		{
+			Sound.FromEntity( "pig_die", this );
 			SpawnAsGhostAtLocation( lastPos );
 			ResetRank();
 		}

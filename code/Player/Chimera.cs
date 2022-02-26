@@ -1,4 +1,5 @@
 ﻿using Sandbox;
+using System.Linq;
 
 partial class PlayerBase
 {
@@ -7,10 +8,8 @@ partial class PlayerBase
 
 	public void SpawnAsChimera()
 	{
-
 		CurrentTeam = TeamEnum.Chimera;
 
-		//SetModel( "models/citizen/citizen.vmdl" );
 		SetModel( "models/player/chimera/chimera.vmdl" );
 
 		CameraMode = new ChimeraCamera();
@@ -23,7 +22,9 @@ partial class PlayerBase
 		EnableAllCollisions = true;
 		EnableDrawing = true;
 		EnableHideInFirstPerson = true;
-		EnableShadowInFirstPerson = true;		
+		EnableShadowInFirstPerson = true;
+
+		Position = All.OfType<ChimeraSpawn>().FirstOrDefault().Position;
 	}
 
 	//When the button on the chimera's back is pressed, turn off the chimera
@@ -45,12 +46,17 @@ partial class PlayerBase
 
 	public void Bite()
 	{
-		var tr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 95 )
+		var tr = Trace.Box( new Vector3(25, 25, 25), EyePosition, EyePosition + EyeRotation.Forward * 95 )
 			.Size( 10 )
 			.Ignore( this )
 			.Run();
 
+		using ( Prediction.Off() )
+			Sound.FromEntity( "bite", this );
+		
 		Sound.FromEntity( "bite", this);
+
+		SetAnimParameter( "bite", true );
 
 		timeLastBite = 0;
 		CanMove = false;
@@ -58,7 +64,12 @@ partial class PlayerBase
 		if (tr.Entity is PlayerBase player)
 		{
 			if ( player.CurrentTeam == TeamEnum.Pigmask )
+			{
+				Game.roundTimer -= 30.0f;
+				if ( Game.roundTimer <= 0.0f )
+					Game.roundTimer = 0.0f;
 				player.OnKilled();
+			}
 		}
 	}
 }

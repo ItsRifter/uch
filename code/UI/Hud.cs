@@ -6,10 +6,13 @@ public partial class Hud : Sandbox.HudEntity<RootPanel>
 	{
 		if ( IsClient )
 		{
-			RootPanel.SetTemplate( "/minimalhud.html" );
-
+			//TEMPORARY
 			RootPanel.AddChild<ChatBox>();
 			RootPanel.AddChild<Scoreboard<ScoreboardEntry>>();
+			RootPanel.AddChild<KillFeed>();
+			RootPanel.AddChild<NameTags>();
+
+			RootPanel.AddChild<Timer>();
 		}
 	}
 }

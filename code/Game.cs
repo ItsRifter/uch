@@ -13,7 +13,6 @@ public partial class Game : Sandbox.Game
 	{
 		if ( IsServer )
 		{
-
 		}
 
 		if ( IsClient )
@@ -25,10 +24,10 @@ public partial class Game : Sandbox.Game
 	[Event.Hotload]
 	public void UpdateHUD()
 	{
-		if ( IsServer ) return;
 		oldHud?.Delete();
 
-		oldHud = new Hud();
+		if(IsClient)	
+			oldHud = new Hud();
 	}
 
 	public override void DoPlayerSuicide( Client cl )
@@ -44,22 +43,24 @@ public partial class Game : Sandbox.Game
 
 		player.InitialSpawn();
 
+		CheckRoundStatus();
+
 		if(Client.All.Count >= 2)
 			StartGame();
 	}
 
 	private void PlayMusic()
 	{
-		using ( Prediction.Off() )
+		
+		foreach ( var client in Client.All )
 		{
-			foreach ( var client in Client.All )
+			if ( client is PlayerBase player )
 			{
-				if ( client is PlayerBase player )
-				{
-					player.PlaySoundToClient( To.Single( player ), "music" );
-				}
+				using ( Prediction.Off() )
+					Sound.FromScreen("music");
 			}
 		}
+		
 	}
 
 	public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )

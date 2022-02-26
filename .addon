@@ -2,7 +2,7 @@
   "Title": "Ultimate Chimera Hunt Enlisted",
   "Type": "game",
   "Org": "rifter",
-  "Ident": "ultimate_chimera_hunt_enlisted",
+  "Ident": "uch_enlisted",
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",

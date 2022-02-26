@@ -1,5 +1,6 @@
 ﻿using Sandbox;
-
+using System;
+using System.Linq;
 partial class PlayerBase
 {
 	private TimeSince timeSinceTaunt;
@@ -20,7 +21,6 @@ partial class PlayerBase
 
 		Controller = new PigmaskController();
 		CameraMode = new FirstPersonCamera();
-
 
 		EnableAllCollisions = true;
 		EnableDrawing = true;
@@ -52,6 +52,11 @@ partial class PlayerBase
 
 		using ( Prediction.Off() )
 			PlaySoundToClient( To.Single( this ), spawnSound );
+
+		var spawnpoints = Entity.All.OfType<PigmaskSpawn>();
+		var randomSpawnPoint = spawnpoints.OrderBy( x => Guid.NewGuid() ).FirstOrDefault();
+
+		Position = randomSpawnPoint.Position;
 	}
 
 	[ServerCmd("uch_rankup")]
@@ -73,7 +78,7 @@ partial class PlayerBase
 		IsTaunting = true;
 		CanMove = false;
 
-		Animator.SetAnimParameter( "taunt", true );
+		SetAnimParameter("taunt", true );
 	}
 
 	public void ResetRank()
