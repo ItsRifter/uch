@@ -11,7 +11,8 @@ public partial class PlayerBase : Sandbox.Player
 
 	private DamageInfo lastDamage;
 
-	private Sound currentSound;
+	[Net]
+	public float StaminaAmount { get; private set; } = 100.0f;
 
 	public enum TeamEnum
 	{
@@ -20,7 +21,12 @@ public partial class PlayerBase : Sandbox.Player
 		Chimera
 	}
 
-	public TeamEnum CurrentTeam;
+	[Net, Change( nameof( OnTeamChange ) )]
+	public TeamEnum CurrentTeam { get; private set; } = TeamEnum.Spectator;
+
+	public void OnTeamChange( TeamEnum oldTeam, TeamEnum newTeam )
+	{
+	}
 
 	public void InitialSpawn()
 	{
@@ -39,7 +45,7 @@ public partial class PlayerBase : Sandbox.Player
 		EnableHideInFirstPerson = true;
 		EnableShadowInFirstPerson = true;
 
-		StopSoundOnClient( To.Single( this ) );
+		Game.Current.StopMusicClient( To.Single( this ) );
 		CanMove = true;
 
 		base.Respawn();
@@ -73,6 +79,13 @@ public partial class PlayerBase : Sandbox.Player
 				CanMove = true;
 			}
 
+			//Shift Key - Sprinting
+			if(Input.Pressed(InputButton.Run) && StaminaAmount > 0.0f)
+			{
+				StaminaAmount -= 0.1f;
+			}
+
+
 			//Use key or Mouse 1 on Chimera's button
 			if ( Input.Pressed( InputButton.Use ) || Input.Pressed( InputButton.Attack1 ) )
 			{
@@ -105,24 +118,6 @@ public partial class PlayerBase : Sandbox.Player
 		}
 	}
 
-	[ClientRpc]
-	private void PlayAnimationsOnClient(string anim, bool active)
-	{
-		SetAnimParameter( anim, active );
-	}
-
-	[ClientRpc]
-	private void PlaySoundToClient(string soundPath)
-	{
-		currentSound = Sound.FromScreen( soundPath );
-	}
-
-	[ClientRpc]
-	private void StopSoundOnClient()
-	{
-		currentSound.Stop();
-	}
-
 	public override void TakeDamage( DamageInfo info )
 	{
 		base.TakeDamage( info );
@@ -138,12 +133,10 @@ public partial class PlayerBase : Sandbox.Player
 		if ( CurrentTeam == TeamEnum.Pigmask )
 		{
 			Sound.FromEntity( "pig_die", this );
-			SpawnAsGhostAtLocation( lastPos );
 			ResetRank();
+			SpawnAsGhostAtLocation( lastPos );
 		}
 
 		Event.Run( "evnt_roundstatus" );
-
-		EnableDrawing = false;
 	}
 }

@@ -5,22 +5,25 @@ using Sandbox.UI.Construct;
 
 public partial class Timer : Panel
 {
-	public TimeSince TimeUntilStart = 999;
+	public string TimeLeft => $"{ Math.Max( 0, Game.Current.RoundTimer - Time.Now ).CeilToInt() }";
 
 	public Label TimeLbl;
 
 	public Timer()
 	{
 		StyleSheet.Load( "UI/Timer.scss" );
-		TimeLbl = Add.Label("Teach Rifter how to UI", "timer");
+		TimeLbl = Add.Label("Waiting for players", "timer");
 	}
 
 	public override void Tick()
 	{
 		base.Tick();
 
-		if ( TimeUntilStart < 20 )
-			TimeLbl.Text = "Starting in " + MathF.Round(20 - TimeUntilStart).ToString();
-
+		if ( Game.Current.RoundTimer >= 0 && Game.Current.CurrentRoundStatus == Game.RoundEnum.Starting )
+			TimeLbl.Text = "Starting in " + TimeLeft;
+		else if ( Game.Current.CurrentRoundStatus == Game.RoundEnum.Active )
+			TimeLbl.Text = "Time left: " + TimeLeft;
+		else if ( Game.Current.CurrentRoundStatus == Game.RoundEnum.Post )
+			TimeLbl.Text = "Restarting in " + TimeLeft;
 	}
 }

@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 public partial class Game : Sandbox.Game
 {
+	public static new Game Current => Sandbox.Game.Current as Game;
+
+	private Sound currentSound;
+
 	private Hud oldHud;
 	public Game()
 	{
@@ -45,30 +49,39 @@ public partial class Game : Sandbox.Game
 
 		CheckRoundStatus();
 
-		if(Client.All.Count >= 2)
+		PlayMusicClient( To.Single( player ), "waiting" );
+
+		if (Client.All.Count >= 2)
 			StartGame();
+	}
+
+	[ClientRpc]
+	private void PlaySoundToClient( string soundPath )
+	{
+		Sound.FromScreen( soundPath );
+	}
+
+	[ClientRpc]
+	private void PlayMusicClient( string soundPath )
+	{
+		currentSound = Sound.FromScreen( soundPath );
+	}
+
+	[ClientRpc]
+	private void StopMusicClient()
+	{
+		currentSound.Stop();
 	}
 
 	private void PlayMusic()
 	{
-		
-		foreach ( var client in Client.All )
-		{
-			if ( client is PlayerBase player )
-			{
-				using ( Prediction.Off() )
-					Sound.FromScreen("music");
-			}
-		}
-		
+		using(Prediction.Off())
+			PlayMusicClient( To.Everyone, "music" );
 	}
 
 	public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )
 	{
 		base.ClientDisconnect( cl, reason );
-
-		if ( Client.All.Count < 2 )
-			StopGame();
 
 		CheckRoundStatus();
 	}

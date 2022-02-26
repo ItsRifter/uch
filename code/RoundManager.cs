@@ -4,8 +4,10 @@ using System.Collections.Generic;
 
 public partial class Game
 {
+
+	[Net] public float RoundTimer { get; set; }
+
 	private TimeSince timeTillUpdate;
-	public static TimeSince roundTimer;
 	private PlayerBase lastChimera;
 
 	public enum RoundEnum
@@ -16,7 +18,12 @@ public partial class Game
 		Post,
 	}
 
-	public static RoundEnum CurrentRoundStatus = RoundEnum.Idle;
+	[Net, Change( nameof( OnStateChange ) )]
+	public RoundEnum CurrentRoundStatus { get; private set; } = RoundEnum.Idle;
+
+	public void OnStateChange( RoundEnum oldState, RoundEnum newState)
+	{
+	}
 
 	[Event("startgame")]
 	public void StartGame()
@@ -24,14 +31,9 @@ public partial class Game
 		if ( CurrentRoundStatus != RoundEnum.Idle ) return;
 
 		Log.Info( "Game is starting" );
-		CurrentRoundStatus = RoundEnum.Starting;
-		timeTillUpdate = 0;
 
-		foreach ( var client in Client.All)
-		{
-			if ( client.Pawn is PlayerBase player )
-				player.PlaySoundToClient( To.Single( player ), "waiting" );
-		}
+		CurrentRoundStatus = RoundEnum.Starting;
+		RoundTimer = 20.0f + Time.Now;
 	}
 
 	[ServerCmd("uch_forcestart")]
@@ -50,7 +52,6 @@ public partial class Game
 				players.Add( player );
 		}
 
-
 		var selectedPlayer = players[Rand.Int( 0, players.Count - 1 )];
 
 		if (lastChimera.IsValid())
@@ -61,6 +62,8 @@ public partial class Game
 
 		selectedPlayer.SpawnAsChimera();
 		lastChimera = selectedPlayer;
+
+		PlaySoundToClient( To.Single( selectedPlayer ), "chimera_spawn" );
 
 		Log.Info( selectedPlayer.Client.Name + " is the chimera" );
 	}
@@ -88,6 +91,7 @@ public partial class Game
 
 	public void StopGame()
 	{
+		Log.Info( "Game stopped" );
 		CurrentRoundStatus = RoundEnum.Idle;
 	}
 
@@ -104,7 +108,7 @@ public partial class Game
 
 		PlayMusic();
 
-		roundTimer = 0;
+		RoundTimer = 180.0f + Time.Now;
 	}
 
 	[Event.Tick.Server]
@@ -112,13 +116,18 @@ public partial class Game
 	{
 		if ( CurrentRoundStatus == RoundEnum.Idle ) return;
 
-		if ( timeTillUpdate >= 20 && CurrentRoundStatus == RoundEnum.Starting )
+		if ( (RoundTimer - Time.Now) <= 0 && CurrentRoundStatus == RoundEnum.Starting )
 			BeginActiveRound();
 
-		if ( timeTillUpdate >= 10 && CurrentRoundStatus == RoundEnum.Post )
-			BeginActiveRound();
+		if ( (RoundTimer - Time.Now) <= 0 && CurrentRoundStatus == RoundEnum.Post )
+		{
+			if ( Client.All.Count < 2 )
+				StopGame();
+			else
+				BeginActiveRound();
+		}
 
-		if( roundTimer >= 180 && CurrentRoundStatus == RoundEnum.Active)
+		if( (RoundTimer - Time.Now) <= 0 && CurrentRoundStatus == RoundEnum.Active)
 		{
 			EndRound(false, true);
 		}
@@ -145,8 +154,11 @@ public partial class Game
 	public void EndRound(bool chimeraWin, bool isDraw)
 	{
 		Log.Info( "Round has ended" );
-		timeTillUpdate = 0;
+		RoundTimer = 10 + Time.Now;
+
 		CurrentRoundStatus = RoundEnum.Post;
+
+		StopMusicClient( To.Everyone );
 
 		if (chimeraWin && !isDraw)
 		{
@@ -158,9 +170,9 @@ public partial class Game
 					using(Prediction.Off())
 					{
 						if ( player.CurrentTeam == PlayerBase.TeamEnum.Pigmask || player.CurrentTeam == PlayerBase.TeamEnum.Spectator )
-							player.PlaySoundToClient( To.Single( player ), "pig_lose" );
+							PlaySoundToClient( To.Single(player), "pigs_lose" );
 						else if ( player.CurrentTeam == PlayerBase.TeamEnum.Chimera )
-							player.PlaySoundToClient( To.Single( player ), "chimera_win" );
+							PlaySoundToClient( To.Single( player ), "chimera_win" );
 					}
 				}
 			}	
@@ -172,15 +184,12 @@ public partial class Game
 			{
 				if ( client.Pawn is PlayerBase player )
 				{
-
 					if ( player.CurrentTeam == PlayerBase.TeamEnum.Pigmask || player.CurrentTeam == PlayerBase.TeamEnum.Spectator )
-					{
 						using ( Prediction.Off() )
-							player.PlaySoundToClient( To.Single( player ), "pig_win" );
-					}
+							PlaySoundToClient( To.Single( player ), "pigs_win" );
 					else if ( player.CurrentTeam == PlayerBase.TeamEnum.Chimera )
 						using ( Prediction.Off() )
-							player.PlaySoundToClient( To.Single( player ), "chimera_lose" );
+							PlaySoundToClient( To.Single( player ), "chimera_lose" );
 
 				}
 			}

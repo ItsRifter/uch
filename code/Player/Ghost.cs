@@ -4,6 +4,8 @@ using System.Linq;
 
 partial class PlayerBase
 {
+	private Vector3 restorePos;
+
 	public void SpawnAsGhost()
 	{
 		CurrentTeam = TeamEnum.Spectator;
@@ -26,12 +28,15 @@ partial class PlayerBase
 			return;
 		}
 
-		Position = randomSpawnPoint.Position;
+		if ( !restorePos.IsNaN )
+			Position = restorePos;
+		else
+			Position = randomSpawnPoint.Position;
 	}
 
 	public void SpawnAsGhostAtLocation(Vector3 location)
 	{
-		Position = location;
+		restorePos = location;
 
 		SpawnAsGhost();
 	}

@@ -42,7 +42,7 @@ public partial class PigmaskController : BasePlayerController
 	{
 		var girth = BodyGirth * 0.5f;
 		var mins = new Vector3( -girth, -girth, 0 );
-		var maxs = new Vector3( +girth, +girth, BodyHeight );
+		var maxs = new Vector3( +girth, +girth, BodyHeight - 4 );
 
 		return new BBox( mins, maxs );
 	}

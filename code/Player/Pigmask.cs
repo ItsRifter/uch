@@ -51,28 +51,18 @@ partial class PlayerBase
 		}
 
 		using ( Prediction.Off() )
-			PlaySoundToClient( To.Single( this ), spawnSound );
+			Game.Current.PlaySoundToClient( To.Single( this ), spawnSound );
 
 		var spawnpoints = Entity.All.OfType<PigmaskSpawn>();
 		var randomSpawnPoint = spawnpoints.OrderBy( x => Guid.NewGuid() ).FirstOrDefault();
 
 		Position = randomSpawnPoint.Position;
 	}
-
-	[ServerCmd("uch_rankup")]
-	public static void RankUpCMD()
-	{
-		var player = ConsoleSystem.Caller.Pawn as PlayerBase;
-
-		player.Rankup();
-		player.SpawnAsPigmask();
-	}
-
 	public void Taunt()
 	{
 		Log.Info( "Taunting" );
 
-		CameraMode = new ThirdPersonCamera();
+		CameraMode = new UCHThirdPersonCamera();
 
 		timeSinceTaunt = 0;
 		IsTaunting = true;

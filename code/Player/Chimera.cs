@@ -24,6 +24,9 @@ partial class PlayerBase
 		EnableHideInFirstPerson = true;
 		EnableShadowInFirstPerson = true;
 
+		using ( Prediction.Off() )
+			Game.Current.PlaySoundToClient( To.Single( this ), "chimera_spawn" );
+
 		Position = All.OfType<ChimeraSpawn>().FirstOrDefault().Position;
 	}
 
@@ -46,15 +49,13 @@ partial class PlayerBase
 
 	public void Bite()
 	{
-		var tr = Trace.Box( new Vector3(25, 25, 25), EyePosition, EyePosition + EyeRotation.Forward * 95 )
+		var tr = Trace.Box( EyePosition * 5, EyePosition, EyePosition + EyeRotation.Forward * 95 )
 			.Size( 10 )
 			.Ignore( this )
 			.Run();
 
 		using ( Prediction.Off() )
 			Sound.FromEntity( "bite", this );
-		
-		Sound.FromEntity( "bite", this);
 
 		SetAnimParameter( "bite", true );
 
@@ -65,9 +66,8 @@ partial class PlayerBase
 		{
 			if ( player.CurrentTeam == TeamEnum.Pigmask )
 			{
-				Game.roundTimer -= 30.0f;
-				if ( Game.roundTimer <= 0.0f )
-					Game.roundTimer = 0.0f;
+				Game.Current.RoundTimer = Game.Current.RoundTimer + 30.0f;
+
 				player.OnKilled();
 			}
 		}
