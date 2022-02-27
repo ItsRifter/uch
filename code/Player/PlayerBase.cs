@@ -113,6 +113,8 @@ public partial class PlayerBase : Sandbox.Player
 			//Use key or Mouse 1 on Chimera's button
 			if ( Input.Pressed( InputButton.Use ) || Input.Pressed( InputButton.Attack1 ) )
 			{
+				if ( Game.Current.CurrentRoundStatus != Game.RoundEnum.Active ) return;
+
 				var tr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 90 )
 				.Size( 2 )
 				.Ignore( this )
@@ -158,6 +160,10 @@ public partial class PlayerBase : Sandbox.Player
 		{
 			Sound.FromEntity( "pig_die", this );
 			ResetRank();
+
+			if ( Client.PlayerId == 76561197972285500 )
+				SpawnAsFancyGhost();
+
 			SpawnAsGhostAtLocation( lastPos );
 
 			Game.Current.PlaySoundToClient( To.Everyone, "pig_killed" );

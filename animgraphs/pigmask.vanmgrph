@@ -678,7 +678,7 @@
 					m_id = 284220693
 				}
 				m_lookatChainName = "LookChain"
-				m_attachmentName = "forward_reference"
+				m_attachmentName = "forward_reference_modelspace"
 				m_flYawLimit = 140.0
 				m_flPitchLimit = 140.0
 				m_bResetBase = true

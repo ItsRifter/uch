@@ -478,10 +478,6 @@
 											name = "head"
 											weight = 0.6
 										},
-										{
-											name = "neck_0"
-											weight = 0.35
-										},
 									]
 								}
 							},
@@ -497,9 +493,24 @@
 											name = "head"
 											weight = 0.6
 										},
+									]
+								}
+							},
+							{
+								_class = "LookAtChain"
+								name = "AimChain"
+								lookat_chain = 
+								{
+									name = ""
+									bones = 
+									[
 										{
-											name = "neck_0"
-											weight = 0.15
+											name = "body2"
+											weight = 0.45
+										},
+										{
+											name = "body1"
+											weight = 0.2
 										},
 									]
 								}
@@ -520,6 +531,25 @@
 						relative_angles = [ 0.0, 90.0, 90.0 ]
 						weight = 1.0
 						ignore_rotation = false
+					},
+					{
+						_class = "Attachment"
+						name = "forward_reference_modelspace"
+						children = 
+						[
+							{
+								_class = "AttachmentInfluence"
+								parent_bone = "head"
+								relative_origin = [ 0.0, -3.0, 0.0 ]
+								relative_angles = [ 0.0, 90.0, 90.0 ]
+								weight = 1.0
+							},
+						]
+						parent_bone = "body2"
+						relative_origin = [ 0.0, -3.0, 0.0 ]
+						relative_angles = [ 0.0, 90.0, 90.0 ]
+						weight = 1.0
+						ignore_rotation = true
 					},
 				]
 			},

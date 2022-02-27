@@ -55,33 +55,28 @@
 							exception_list = [  ]
 						}
 					},
+					{
+						_class = "RenderMeshFile"
+						filename = "models/raw/WineGlass.smd"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
 				]
 			},
 			{
 				_class = "AnimationList"
 				children = 
 				[
-					{
-						_class = "AnimFile"
-						name = "Idle1"
-						activity_name = ""
-						activity_weight = 1
-						weight_list_name = ""
-						fade_in_time = 0.2
-						fade_out_time = 0.2
-						looping = false
-						delta = false
-						worldSpace = false
-						hidden = false
-						anim_markup_ordered = false
-						disable_compression = false
-						source_filename = "models/raw/mghost_anims/Idle1.smd"
-						start_frame = -1
-						end_frame = -1
-						framerate = -1.0
-						take = 0
-						reverse = false
-					},
 					{
 						_class = "AnimFile"
 						name = "a_walkN"
@@ -160,6 +155,27 @@
 						anim_markup_ordered = false
 						disable_compression = false
 						source_filename = "models/raw/mghost_anims/a_WalkS.smd"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "Idle2"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/raw/mghost_anims/Idle2.smd"
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
@@ -264,6 +280,6 @@
 		]
 		model_archetype = ""
 		primary_associated_entity = ""
-		anim_graph_name = "animgraphs/ghost.vanmgrph"
+		anim_graph_name = "animgraphs/ghost_fancy.vanmgrph"
 	}
 }

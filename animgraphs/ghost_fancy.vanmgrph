@@ -460,7 +460,7 @@
 	}
 	m_previewModels = 
 	[
-		"models/player/ghost/ghost.vmdl",
+		"models/player/ghost/ghost_fancy.vmdl",
 	]
 	m_nodes = 
 	[
@@ -509,7 +509,7 @@
 					{
 						_class = "CBlend2DItem"
 						m_tagSpans = [  ]
-						m_sequenceName = "Idle1"
+						m_sequenceName = "Idle2"
 						m_blendValue = [ 0.0, 0.0 ]
 					},
 				]

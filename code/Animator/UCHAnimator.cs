@@ -36,7 +36,7 @@ public class UCHAnimator : PawnAnimator
 		//
 		SetLookAt( "aim_eyes", lookPos );
 		SetLookAt( "aim_head", -lookPos );
-		SetLookAt( "aim_body", aimPos );
+		SetLookAt( "aim_body", -aimPos );
 
 		if ( HasTag( "ducked" ) ) duck = duck.LerpTo( 1.0f, Time.Delta * 10.0f );
 		else duck = duck.LerpTo( 0.0f, Time.Delta * 5.0f );

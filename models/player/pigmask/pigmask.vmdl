@@ -500,10 +500,6 @@
 											name = "head"
 											weight = 0.6
 										},
-										{
-											name = "neck_0"
-											weight = 0.35
-										},
 									]
 								}
 							},
@@ -519,10 +515,6 @@
 											name = "head"
 											weight = 0.6
 										},
-										{
-											name = "neck_0"
-											weight = 0.15
-										},
 									]
 								}
 							},
@@ -535,19 +527,11 @@
 									bones = 
 									[
 										{
-											name = "spine_2"
-											weight = 1.0
-										},
-										{
-											name = "spine_1"
-											weight = 0.7
-										},
-										{
-											name = "spine_0"
+											name = "body2"
 											weight = 0.45
 										},
 										{
-											name = "pelvis"
+											name = "body1"
 											weight = 0.2
 										},
 									]
@@ -563,15 +547,6 @@
 				[
 					{
 						_class = "Attachment"
-						name = "forward_reference"
-						parent_bone = "head"
-						relative_origin = [ 0.0, 0.0, 0.0 ]
-						relative_angles = [ 0.0, 90.0, 90.0 ]
-						weight = 1.0
-						ignore_rotation = false
-					},
-					{
-						_class = "Attachment"
 						name = "forward_reference_modelspace"
 						children = 
 						[
@@ -583,7 +558,7 @@
 								weight = 1.0
 							},
 						]
-						parent_bone = "pelvis"
+						parent_bone = "body2"
 						relative_origin = [ 0.0, -3.0, 0.0 ]
 						relative_angles = [ 0.0, 90.0, 90.0 ]
 						weight = 1.0
