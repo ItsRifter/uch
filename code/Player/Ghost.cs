@@ -12,7 +12,7 @@ partial class PlayerBase
 		SetModel( "models/player/ghost/ghost.vmdl" );
 
 		Controller = new GhostController();
-		CameraMode = new FirstPersonCamera();
+		CameraMode = new UCHCamera();
 
 		EnableAllCollisions = false;
 		EnableDrawing = true;

@@ -12,7 +12,8 @@ partial class PlayerBase
 
 		SetModel( "models/player/chimera/chimera.vmdl" );
 
-		CameraMode = new ChimeraCamera();
+		CameraMode = new UCHChimeraCamera();
+		Controller = new ChimeraController();
 
 		timeLastBite = 0;
 
@@ -21,8 +22,8 @@ partial class PlayerBase
 
 		EnableAllCollisions = true;
 		EnableDrawing = true;
-		EnableHideInFirstPerson = true;
-		EnableShadowInFirstPerson = true;
+		EnableHideInFirstPerson = false;
+		EnableShadowInFirstPerson = false;
 
 		using ( Prediction.Off() )
 			Game.Current.PlaySoundToClient( To.Single( this ), "chimera_spawn" );
@@ -35,6 +36,7 @@ partial class PlayerBase
 	{
 		Sound.FromEntity( "button_press", this);
 		ActiveChimera = false;
+		EnableDrawing = false;
 		EnableAllCollisions = false;
 		OnKilled();
 	}
@@ -49,8 +51,10 @@ partial class PlayerBase
 
 	public void Bite()
 	{
-		var tr = Trace.Box( EyePosition * 5, EyePosition, EyePosition + EyeRotation.Forward * 95 )
-			.Size( 10 )
+		if ( Game.Current.CurrentRoundStatus != Game.RoundEnum.Active ) return;
+
+		var tr = Trace.Sphere(48, EyePosition, EyePosition + EyeRotation.Forward * 95 )
+			.Size( 2 )
 			.Ignore( this )
 			.Run();
 
@@ -62,14 +66,20 @@ partial class PlayerBase
 		timeLastBite = 0;
 		CanMove = false;
 
-		if (tr.Entity is PlayerBase player)
-		{
-			if ( player.CurrentTeam == TeamEnum.Pigmask )
-			{
-				Game.Current.RoundTimer = Game.Current.RoundTimer + 30.0f;
+		if ( tr.Entity is not PlayerBase )
+			return;
 
-				player.OnKilled();
-			}
+		var totalEnts = FindInSphere( tr.EndPosition, 48 );
+
+		foreach(var ent in totalEnts) 
+		{
+			if (ent is PlayerBase player)
+				if ( player.CurrentTeam == TeamEnum.Pigmask )
+				{
+					Game.Current.RoundTimer = Game.Current.RoundTimer + 30.0f;
+
+					player.OnKilled();
+				}
 		}
 	}
 }

@@ -35,7 +35,7 @@ public class UCHAnimator : PawnAnimator
 		// Look in the direction what the player's input is facing
 		//
 		SetLookAt( "aim_eyes", lookPos );
-		SetLookAt( "aim_head", lookPos );
+		SetLookAt( "aim_head", -lookPos );
 		SetLookAt( "aim_body", aimPos );
 
 		if ( HasTag( "ducked" ) ) duck = duck.LerpTo( 1.0f, Time.Delta * 10.0f );

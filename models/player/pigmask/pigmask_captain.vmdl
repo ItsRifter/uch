@@ -435,15 +435,91 @@
 				children = 
 				[
 					{
-						_class = "PhysicsHullFromRender"
+						_class = "PhysicsHullFile"
+						name = "pigmask_physics"
 						parent_bone = ""
 						surface_prop = "default"
 						collision_group = ""
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						faceMergeAngle = 20.0
-						maxHullVertices = 32
+						recenter_on_parent_bone = false
+						offset_origin = [ 0.0, 0.0, 0.0 ]
+						offset_angles = [ 0.0, 0.0, 0.0 ]
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						filename = "models/raw/pigmask/pigmask_physics.smd"
+						import_scale = 1.0
+						faceMergeAngle = 10.0
+						maxHullVertices = 0
+						import_mode = "SingleHull"
+						optimization_algorithm = "QEM"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "Folder"
+						name = "LookAtChains"
+						children = 
+						[
+							{
+								_class = "LookAtChain"
+								name = "LookChain"
+								lookat_chain = 
+								{
+									name = ""
+									bones = 
+									[
+										{
+											name = "head"
+											weight = 0.6
+										},
+										{
+											name = "neck_0"
+											weight = 0.35
+										},
+									]
+								}
+							},
+							{
+								_class = "LookAtChain"
+								name = "LookChain_LessNeck"
+								lookat_chain = 
+								{
+									name = ""
+									bones = 
+									[
+										{
+											name = "head"
+											weight = 0.6
+										},
+										{
+											name = "neck_0"
+											weight = 0.15
+										},
+									]
+								}
+							},
+						]
+					},
+				]
+			},
+			{
+				_class = "AttachmentList"
+				children = 
+				[
+					{
+						_class = "Attachment"
+						name = "forward_reference"
+						parent_bone = "head"
+						relative_origin = [ 0.0, 0.0, 0.0 ]
+						relative_angles = [ 0.0, 90.0, 90.0 ]
+						weight = 1.0
+						ignore_rotation = false
 					},
 				]
 			},

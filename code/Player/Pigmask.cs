@@ -20,7 +20,7 @@ partial class PlayerBase
 		CurrentTeam = TeamEnum.Pigmask;
 
 		Controller = new PigmaskController();
-		CameraMode = new FirstPersonCamera();
+		CameraMode = new UCHCamera();
 
 		EnableAllCollisions = true;
 		EnableDrawing = true;
@@ -33,27 +33,31 @@ partial class PlayerBase
 		{
 			SetModel( "models/player/pigmask/pigmask.vmdl" );
 			spawnSound = "ensign_spawn";
+			StaminaAmount = 100.0f;
 		}
 		else if ( CurrentPigRank == PigRank.Captain )
 		{
 			SetModel( "models/player/pigmask/pigmask_captain.vmdl" );
 			spawnSound = "captain_spawn";
+			StaminaAmount = 125.0f;
 		}
 		else if ( CurrentPigRank == PigRank.Major )
 		{
 			SetModel( "models/player/pigmask/pigmask_major.vmdl" );
 			spawnSound = "major_spawn";
+			StaminaAmount = 150.0f;
 		}
 		else if ( CurrentPigRank == PigRank.Colonel )
 		{
 			SetModel( "models/player/pigmask/pigmask_colonel.vmdl" );
 			spawnSound = "colonel_spawn";
+			StaminaAmount = 200.0f;
 		}
 
 		using ( Prediction.Off() )
 			Game.Current.PlaySoundToClient( To.Single( this ), spawnSound );
 
-		var spawnpoints = Entity.All.OfType<PigmaskSpawn>();
+		var spawnpoints = All.OfType<PigmaskSpawn>();
 		var randomSpawnPoint = spawnpoints.OrderBy( x => Guid.NewGuid() ).FirstOrDefault();
 
 		Position = randomSpawnPoint.Position;
@@ -62,7 +66,7 @@ partial class PlayerBase
 	{
 		Log.Info( "Taunting" );
 
-		CameraMode = new UCHThirdPersonCamera();
+		CameraMode = new UCHTauntCamera();
 
 		timeSinceTaunt = 0;
 		IsTaunting = true;
@@ -83,7 +87,7 @@ partial class PlayerBase
 		{
 			CurrentPigRank = PigRank.Captain;
 			return;
-		} 
+		}
 
 		else if ( CurrentPigRank == PigRank.Captain )
 		{ 

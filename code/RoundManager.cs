@@ -36,6 +36,13 @@ public partial class Game
 		RoundTimer = 20.0f + Time.Now;
 	}
 
+	[ServerCmd( "uch_restartround" )]
+	public static void RestartRoundCMD()
+	{
+		Log.Info( "Round restarted by command" );
+		Event.Run( "restartround", false, true );
+	}
+
 	[ServerCmd("uch_forcestart")]
 	public static void StartGameCMD()
 	{
@@ -63,8 +70,6 @@ public partial class Game
 		selectedPlayer.SpawnAsChimera();
 		lastChimera = selectedPlayer;
 
-		PlaySoundToClient( To.Single( selectedPlayer ), "chimera_spawn" );
-
 		Log.Info( selectedPlayer.Client.Name + " is the chimera" );
 	}
 
@@ -74,18 +79,6 @@ public partial class Game
 		{
 			if ( client.Pawn is PlayerBase player && player.CurrentTeam != PlayerBase.TeamEnum.Chimera )
 				player.SpawnAsPigmask();
-		}
-	}
-
-	public void ResetPlayers()
-	{
-		foreach ( var client in Client.All )
-		{
-			if ( client.Pawn is PlayerBase player )
-			{
-				player.SpawnAsGhost();
-				player.Respawn();
-			}
 		}
 	}
 
@@ -102,7 +95,12 @@ public partial class Game
 		Log.Info( "Round active" );
 		CurrentRoundStatus = RoundEnum.Active;
 
-		ResetPlayers();
+		foreach ( var client in Client.All)
+		{
+			if ( client.Pawn is PlayerBase player )
+				player.Respawn();
+		}
+
 		SelectPlayerAsChimera();
 		SpawnOthersAsPigmasks();
 
@@ -151,6 +149,7 @@ public partial class Game
 		}
 	}
 
+	[Event( "restartround" )]
 	public void EndRound(bool chimeraWin, bool isDraw)
 	{
 		Log.Info( "Round has ended" );
@@ -185,17 +184,17 @@ public partial class Game
 				if ( client.Pawn is PlayerBase player )
 				{
 					if ( player.CurrentTeam == PlayerBase.TeamEnum.Pigmask || player.CurrentTeam == PlayerBase.TeamEnum.Spectator )
-						using ( Prediction.Off() )
-							PlaySoundToClient( To.Single( player ), "pigs_win" );
+						PlaySoundToClient( To.Single( player ), "pigs_win" );
 					else if ( player.CurrentTeam == PlayerBase.TeamEnum.Chimera )
-						using ( Prediction.Off() )
-							PlaySoundToClient( To.Single( player ), "chimera_lose" );
+						PlaySoundToClient( To.Single( player ), "chimera_lose" );
 
 				}
 			}
 		} else if ( isDraw )
 		{
 			Log.Info( "DRAW" );
+			PlaySoundToClient( To.Everyone, "draw" );
+			
 		}
 	}
 

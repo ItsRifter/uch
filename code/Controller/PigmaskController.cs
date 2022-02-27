@@ -3,7 +3,7 @@
 [Library]
 public partial class PigmaskController : BasePlayerController
 {
-	[Net] public float SprintSpeed { get; set; } = 250.0f;
+	[Net] public float SprintSpeed { get; set; } = 350.0f;
 	[Net] public float WalkSpeed { get; set; } = 150.0f;
 	[Net] public float DefaultSpeed { get; set; } = 175.0f;
 	[Net] public float Acceleration { get; set; } = 10.0f;
@@ -19,8 +19,8 @@ public partial class PigmaskController : BasePlayerController
 	[Net] public float StepSize { get; set; } = 18.0f;
 	[Net] public float MaxNonJumpVelocity { get; set; } = 140.0f;
 	[Net] public float BodyGirth { get; set; } = 16.0f;
-	[Net] public float BodyHeight { get; set; } = 58.0f;
-	[Net] public float EyeHeight { get; set; } = 52.0f;
+	[Net] public float BodyHeight { get; set; } = 48.0f;
+	[Net] public float EyeHeight { get; set; } = 48.0f;
 	[Net] public float Gravity { get; set; } = 800.0f;
 	[Net] public float AirControl { get; set; } = 30.0f;
 	public bool Swimming { get; set; } = false;
@@ -251,7 +251,12 @@ public partial class PigmaskController : BasePlayerController
 		var ws = Duck.GetWishSpeed();
 		if ( ws >= 0 ) return ws;
 
-		if ( Input.Down( InputButton.Run ) ) return SprintSpeed;
+		if(Input.Down(InputButton.Run) && Pawn is PlayerBase player)
+		{
+			if ( player.StaminaAmount > 0 )
+				return SprintSpeed;
+		}
+
 		if ( Input.Down( InputButton.Walk ) ) return WalkSpeed;
 
 		return DefaultSpeed;

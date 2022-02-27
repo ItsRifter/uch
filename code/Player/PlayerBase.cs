@@ -5,7 +5,11 @@ using System.Linq;
 public partial class PlayerBase : Sandbox.Player
 {
 	private bool IsTaunting = false;
-	private bool CanMove = true;
+
+	private TimeSince timeLastSprinted;
+
+	[Net]
+	public bool CanMove { get; private set; } = true;
 
 	private Vector3 lastPos;
 
@@ -16,6 +20,7 @@ public partial class PlayerBase : Sandbox.Player
 
 	public enum TeamEnum
 	{
+		Unspecified,
 		Spectator,
 		Pigmask,
 		Chimera
@@ -40,15 +45,28 @@ public partial class PlayerBase : Sandbox.Player
 
 	public override void Respawn()
 	{
+
+		CurrentTeam = TeamEnum.Unspecified;
+
 		EnableAllCollisions = true;
 		EnableDrawing = true;
 		EnableHideInFirstPerson = true;
 		EnableShadowInFirstPerson = true;
 
-		Game.Current.StopMusicClient( To.Single( this ) );
 		CanMove = true;
 
+		if(CurrentTeam == TeamEnum.Spectator)
+			EnableAllCollisions = false;
+
 		base.Respawn();
+	}
+
+	public override void BuildInput( InputBuilder inputBuilder )
+	{
+		if ( !CanMove )
+			return;
+
+		base.BuildInput( inputBuilder );
 	}
 
 	public override void Simulate( Client cl )
@@ -56,12 +74,14 @@ public partial class PlayerBase : Sandbox.Player
 		DoInputControls();
 		TickPlayerUse();
 
-		if ( !CanMove ) return;
+		UsePhysicsCollision = false;
+
+		if ( !CanMove && IsServer )	return;
+	
 		if ( LifeState == LifeState.Dead && CurrentTeam == TeamEnum.Chimera )
 			return;
 
-		var controller = GetActiveController();
-		controller?.Simulate( cl, this, GetActiveAnimator() );
+		base.Simulate(cl);
 	}
 
 	private void DoInputControls()
@@ -70,7 +90,7 @@ public partial class PlayerBase : Sandbox.Player
 		if ( CurrentTeam == TeamEnum.Pigmask )
 		{
 			//G Key - Taunt
-			if ( Input.Pressed( InputButton.Drop ) && !IsTaunting )
+			if ( Input.Pressed( InputButton.Drop ) && !IsTaunting && GroundEntity != null )
 				Taunt();
 			else if ( IsTaunting && timeSinceTaunt > 2.5f )
 			{
@@ -80,11 +100,15 @@ public partial class PlayerBase : Sandbox.Player
 			}
 
 			//Shift Key - Sprinting
-			if(Input.Pressed(InputButton.Run) && StaminaAmount > 0.0f)
+			if ( Input.Down( InputButton.Run ) && StaminaAmount > 0.0f )
 			{
-				StaminaAmount -= 0.1f;
+				timeLastSprinted = 0;
+				StaminaAmount -= 2.5f;
 			}
-
+			else if ( timeLastSprinted >= 5 && StaminaAmount < 100.0f )
+			{
+				StaminaAmount += 0.5f;
+			}
 
 			//Use key or Mouse 1 on Chimera's button
 			if ( Input.Pressed( InputButton.Use ) || Input.Pressed( InputButton.Attack1 ) )
@@ -135,6 +159,8 @@ public partial class PlayerBase : Sandbox.Player
 			Sound.FromEntity( "pig_die", this );
 			ResetRank();
 			SpawnAsGhostAtLocation( lastPos );
+
+			Game.Current.PlaySoundToClient( To.Everyone, "pig_killed" );
 		}
 
 		Event.Run( "evnt_roundstatus" );

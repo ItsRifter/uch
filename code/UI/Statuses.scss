@@ -1,12 +1,16 @@
-statuses {
+.statuses {
 	position: absolute;
-	left: 50px;
+	left: 2%;
 	bottom: 50px;
-	padding: 5px;
-	background-color: palegoldenrod;
-	box-shadow: 0 0 5px black;
-}
+	opacity: 1;
+	width: 250px;
+	height: 50px;
 
-.pigmask_ensign_stamina {
-	color: lightpink;
+	.ensign {
+		box-shadow: 1px 1px rgb(255, 170, 210);
+	}
+
+	.captain {
+		box-shadow: 1px 1px rgb(0 148 255);
+	}
 }

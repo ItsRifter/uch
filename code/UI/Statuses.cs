@@ -5,31 +5,33 @@ using Sandbox.UI.Construct;
 
 public partial class Statuses : Panel
 {
-	public Panel StaminaBarColour;
+	public Panel StaminaBar;
 
 
 	public Statuses()
 	{
 		StyleSheet.Load( "UI/Statuses.scss" );
 
-		StaminaBarColour = Add.Panel( "pigmask_ensign_stamina" );
+		StaminaBar = Add.Panel( "ensign" );
+		StaminaBar.SetClass( "ensign", true );
 	}
 
 	public override void Tick()
 	{
 		base.Tick();
 
+		Style.Dirty();
 		if (Local.Pawn != null && Local.Pawn is PlayerBase player)
 		{
-			if ( player.CurrentTeam == PlayerBase.TeamEnum.Spectator ) return;
-
+			if ( player.CurrentTeam == PlayerBase.TeamEnum.Spectator || player.CurrentTeam == PlayerBase.TeamEnum.Chimera )
+			{
+				Style.Width = 0;
+				return;
+			}
 			if ( player.CurrentTeam == PlayerBase.TeamEnum.Pigmask )
 			{
-				Style.Dirty();
-				Style.Width = Length.Percent( player.StaminaAmount / 10 );
+				Style.Width = Length.Percent(player.StaminaAmount / 10);
 			}
-
-			
 		}	
 	}
 }
