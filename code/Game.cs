@@ -51,10 +51,6 @@ public partial class Game : Sandbox.Game
 
 		PlayMusicClient( To.Single( player ), "waiting" );
 
-		//Rifter (Me :D) has joined
-		if( client.PlayerId == 76561197972285500 )
-			player.SpawnAsFancyGhost();
-		
 		if (Client.All.Count >= 2)
 			StartGame();
 	}

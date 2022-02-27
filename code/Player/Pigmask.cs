@@ -57,10 +57,18 @@ partial class PlayerBase
 		using ( Prediction.Off() )
 			Game.Current.PlaySoundToClient( To.Single( this ), spawnSound );
 
-		var spawnpoints = All.OfType<PigmaskSpawn>();
+		var spawnpoints = Entity.All.OfType<PigmaskSpawn>();
 		var randomSpawnPoint = spawnpoints.OrderBy( x => Guid.NewGuid() ).FirstOrDefault();
 
+		if ( randomSpawnPoint == null )
+		{
+			Log.Error( "THIS MAP ISN'T SUPPORTED FOR ULTIMATE CHIMERA HUNT" );
+			base.Respawn();
+			return;
+		}
+
 		Position = randomSpawnPoint.Position;
+
 	}
 	public void Taunt()
 	{
@@ -72,7 +80,7 @@ partial class PlayerBase
 		IsTaunting = true;
 		CanMove = false;
 
-		SetAnimParameter("taunt", true );
+		SetAnimParameter( "taunt", true );
 	}
 
 	public void ResetRank()

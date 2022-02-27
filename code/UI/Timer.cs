@@ -13,17 +13,21 @@ public partial class Timer : Panel
 	{
 		StyleSheet.Load( "UI/Timer.scss" );
 		TimeLbl = Add.Label("Waiting for players", "timer");
+		
 	}
 
 	public override void Tick()
 	{
 		base.Tick();
 
+
+		TimeSpan timeDuration = TimeSpan.FromSeconds( Game.Current.RoundTimer - Time.Now );
+
 		if ( Game.Current.RoundTimer >= 0 && Game.Current.CurrentRoundStatus == Game.RoundEnum.Starting )
-			TimeLbl.Text = "Starting in " + TimeLeft;
+			TimeLbl.Text = "Starting in " + timeDuration.ToString( @"m\:ss" );
 		else if ( Game.Current.CurrentRoundStatus == Game.RoundEnum.Active )
-			TimeLbl.Text = "Time left: " + TimeLeft;
+			TimeLbl.Text = "Time left: " + timeDuration.ToString( @"m\:ss" );
 		else if ( Game.Current.CurrentRoundStatus == Game.RoundEnum.Post )
-			TimeLbl.Text = "Restarting in " + TimeLeft;
+			TimeLbl.Text = "Restarting in " + timeDuration.ToString( @"m\:ss" );
 	}
 }

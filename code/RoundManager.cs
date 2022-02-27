@@ -7,6 +7,8 @@ public partial class Game
 
 	[Net] public float RoundTimer { get; set; }
 
+	[Net] public TimeSpan RoundTimeSpan { get; private set;}
+
 	private TimeSince timeTillUpdate;
 	private PlayerBase lastChimera;
 
@@ -34,11 +36,16 @@ public partial class Game
 
 		CurrentRoundStatus = RoundEnum.Starting;
 		RoundTimer = 20.0f + Time.Now;
+		RoundTimeSpan = TimeSpan.FromSeconds( RoundTimer );
 	}
 
 	[ServerCmd( "uch_restartround" )]
 	public static void RestartRoundCMD()
 	{
+		var caller = ConsoleSystem.Caller.Pawn;
+
+		if ( !caller.IsServer ) return;
+
 		Log.Info( "Round restarted by command" );
 		Event.Run( "restartround", false, true );
 	}
@@ -46,6 +53,10 @@ public partial class Game
 	[ServerCmd("uch_forcestart")]
 	public static void StartGameCMD()
 	{
+		var caller = ConsoleSystem.Caller.Pawn;
+
+		if ( !caller.IsServer ) return;
+
 		Event.Run( "startgame" );
 	}
 
@@ -92,6 +103,9 @@ public partial class Game
 	{
 		if ( CurrentRoundStatus == RoundEnum.Active ) return;
 
+		using ( Prediction.Off() )
+			StopMusicClient( To.Everyone );
+
 		Log.Info( "Round active" );
 		CurrentRoundStatus = RoundEnum.Active;
 
@@ -107,6 +121,7 @@ public partial class Game
 		PlayMusic();
 
 		RoundTimer = 180.0f + Time.Now;
+		RoundTimeSpan = TimeSpan.FromSeconds( RoundTimer );
 	}
 
 	[Event.Tick.Server]
@@ -157,7 +172,8 @@ public partial class Game
 
 		CurrentRoundStatus = RoundEnum.Post;
 
-		StopMusicClient( To.Everyone );
+		using(Prediction.Off())
+			StopMusicClient( To.Everyone );
 
 		if (chimeraWin && !isDraw)
 		{

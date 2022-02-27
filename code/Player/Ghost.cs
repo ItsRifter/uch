@@ -25,13 +25,11 @@ partial class PlayerBase
 		if ( randomSpawnPoint == null )
 		{
 			Log.Error( "THIS MAP ISN'T SUPPORTED FOR ULTIMATE CHIMERA HUNT" );
+			base.Respawn();
 			return;
 		}
 
-		if ( !restorePos.IsNaN )
-			Position = restorePos;
-		else
-			Position = randomSpawnPoint.Position;
+		Position = randomSpawnPoint.Position;
 	}
 
 	public void SpawnAsFancyGhost()
@@ -50,16 +48,28 @@ partial class PlayerBase
 		var spawnpoints = Entity.All.OfType<PigmaskSpawn>();
 		var randomSpawnPoint = spawnpoints.OrderBy( x => Guid.NewGuid() ).FirstOrDefault();
 
-		if ( !restorePos.IsNaN )
-			Position = restorePos;
-		else
-			Position = randomSpawnPoint.Position;
+		if ( randomSpawnPoint == null )
+		{
+			Log.Error( "THIS MAP ISN'T SUPPORTED FOR ULTIMATE CHIMERA HUNT" );
+			base.Respawn();
+			return;
+		}
 	}
 
 	public void SpawnAsGhostAtLocation(Vector3 location)
 	{
-		restorePos = location;
+		CurrentTeam = TeamEnum.Spectator;
+		SetModel( "models/player/ghost/ghost.vmdl" );
 
-		SpawnAsGhost();
+		Controller = new GhostController();
+		CameraMode = new UCHCamera();
+
+		EnableAllCollisions = false;
+		EnableDrawing = true;
+		EnableHideInFirstPerson = true;
+		EnableShadowInFirstPerson = true;
+
+		Position = location;
+
 	}
 }

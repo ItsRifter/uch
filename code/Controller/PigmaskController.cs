@@ -18,7 +18,7 @@ public partial class PigmaskController : BasePlayerController
 	[Net] public float MoveFriction { get; set; } = 1.0f;
 	[Net] public float StepSize { get; set; } = 18.0f;
 	[Net] public float MaxNonJumpVelocity { get; set; } = 140.0f;
-	[Net] public float BodyGirth { get; set; } = 16.0f;
+	[Net] public float BodyGirth { get; set; } = 32.0f;
 	[Net] public float BodyHeight { get; set; } = 48.0f;
 	[Net] public float EyeHeight { get; set; } = 48.0f;
 	[Net] public float Gravity { get; set; } = 800.0f;

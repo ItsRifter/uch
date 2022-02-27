@@ -55,8 +55,11 @@ public partial class PlayerBase : Sandbox.Player
 
 		CanMove = true;
 
-		if(CurrentTeam == TeamEnum.Spectator)
+		if ( CurrentTeam == TeamEnum.Spectator )
+		{
 			EnableAllCollisions = false;
+			SpawnAsGhostAtLocation( lastPos );
+		}
 
 		base.Respawn();
 	}
@@ -73,8 +76,6 @@ public partial class PlayerBase : Sandbox.Player
 	{
 		DoInputControls();
 		TickPlayerUse();
-
-		UsePhysicsCollision = false;
 
 		if ( !CanMove && IsServer )	return;
 	
@@ -154,15 +155,11 @@ public partial class PlayerBase : Sandbox.Player
 		base.OnKilled();
 
 		lastPos = Position;
-		BecomeRagdollOnClient( Velocity, 0, Position, new Vector3(25, 0), 0 );
 
 		if ( CurrentTeam == TeamEnum.Pigmask )
 		{
 			Sound.FromEntity( "pig_die", this );
 			ResetRank();
-
-			if ( Client.PlayerId == 76561197972285500 )
-				SpawnAsFancyGhost();
 
 			SpawnAsGhostAtLocation( lastPos );
 
