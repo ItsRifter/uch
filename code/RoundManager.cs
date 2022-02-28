@@ -7,8 +7,6 @@ public partial class Game
 
 	[Net] public float RoundTimer { get; set; }
 
-	[Net] public TimeSpan RoundTimeSpan { get; private set;}
-
 	private TimeSince timeTillUpdate;
 	private PlayerBase lastChimera;
 
@@ -36,7 +34,6 @@ public partial class Game
 
 		CurrentRoundStatus = RoundEnum.Starting;
 		RoundTimer = 20.0f + Time.Now;
-		RoundTimeSpan = TimeSpan.FromSeconds( RoundTimer );
 	}
 
 	[ServerCmd( "uch_restartround" )]
@@ -112,7 +109,10 @@ public partial class Game
 		foreach ( var client in Client.All)
 		{
 			if ( client.Pawn is PlayerBase player )
+			{
+				player.ResetPlayers();
 				player.Respawn();
+			}
 		}
 
 		SelectPlayerAsChimera();
@@ -121,7 +121,6 @@ public partial class Game
 		PlayMusic();
 
 		RoundTimer = 180.0f + Time.Now;
-		RoundTimeSpan = TimeSpan.FromSeconds( RoundTimer );
 	}
 
 	[Event.Tick.Server]
@@ -146,7 +145,6 @@ public partial class Game
 		}
 	}
 
-	[Event( "evnt_roundstatus" )]
 	public void CheckRoundStatus()
 	{
 		//Don't check status if the game is currently idle
@@ -165,34 +163,34 @@ public partial class Game
 	}
 
 	[Event( "restartround" )]
-	public void EndRound(bool chimeraWin, bool isDraw)
+	public void EndRound( bool chimeraWin, bool isDraw )
 	{
 		Log.Info( "Round has ended" );
 		RoundTimer = 10 + Time.Now;
 
 		CurrentRoundStatus = RoundEnum.Post;
 
-		using(Prediction.Off())
+		using ( Prediction.Off() )
 			StopMusicClient( To.Everyone );
 
-		if (chimeraWin && !isDraw)
+		if ( chimeraWin && !isDraw )
 		{
 			Log.Info( "Chimera Won" );
-			foreach(var client in Client.All)
+			foreach ( var client in Client.All )
 			{
-				if(client.Pawn is PlayerBase player)
+				if ( client.Pawn is PlayerBase player )
 				{
-					using(Prediction.Off())
+					using ( Prediction.Off() )
 					{
 						if ( player.CurrentTeam == PlayerBase.TeamEnum.Pigmask || player.CurrentTeam == PlayerBase.TeamEnum.Spectator )
-							PlaySoundToClient( To.Single(player), "pigs_lose" );
+							PlaySoundToClient( To.Single( player ), "pigs_lose" );
 						else if ( player.CurrentTeam == PlayerBase.TeamEnum.Chimera )
 							PlaySoundToClient( To.Single( player ), "chimera_win" );
 					}
 				}
-			}	
+			}
 		}
-		else if (!chimeraWin && !isDraw)
+		else if ( !chimeraWin && !isDraw )
 		{
 			Log.Info( "Pigmasks Won" );
 			foreach ( var client in Client.All )
@@ -210,7 +208,6 @@ public partial class Game
 		{
 			Log.Info( "DRAW" );
 			PlaySoundToClient( To.Everyone, "draw" );
-			
 		}
 	}
 

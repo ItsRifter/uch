@@ -110,6 +110,27 @@
 					{
 						_class = "AnimFile"
 						name = "a_WalkN"
+						children = 
+						[
+							{
+								_class = "AnimEvent"
+								event_class = "AE_SV_PLAYSOUND"
+								event_frame = 0
+								event_keys = 
+								{
+									name = "step"
+								}
+							},
+							{
+								_class = "AnimEvent"
+								event_class = "AE_SV_PLAYSOUND"
+								event_frame = 17
+								event_keys = 
+								{
+									name = "step"
+								}
+							},
+						]
 						activity_name = ""
 						activity_weight = 1
 						weight_list_name = ""
@@ -124,13 +145,34 @@
 						source_filename = "models/raw/chimera/uchimeragm_anims/a_walkn.smd"
 						start_frame = -1
 						end_frame = -1
-						framerate = -1.0
+						framerate = 45.0
 						take = 0
 						reverse = false
 					},
 					{
 						_class = "AnimFile"
 						name = "a_WalkS"
+						children = 
+						[
+							{
+								_class = "AnimEvent"
+								event_class = "AE_SV_PLAYSOUND"
+								event_frame = 0
+								event_keys = 
+								{
+									name = "step"
+								}
+							},
+							{
+								_class = "AnimEvent"
+								event_class = "AE_SV_PLAYSOUND"
+								event_frame = 17
+								event_keys = 
+								{
+									name = "step"
+								}
+							},
+						]
 						activity_name = ""
 						activity_weight = 1
 						weight_list_name = ""
@@ -145,13 +187,34 @@
 						source_filename = "models/raw/chimera/uchimeragm_anims/a_WalkS.smd"
 						start_frame = -1
 						end_frame = -1
-						framerate = -1.0
+						framerate = 45.0
 						take = 0
 						reverse = false
 					},
 					{
 						_class = "AnimFile"
 						name = "a_WalkE"
+						children = 
+						[
+							{
+								_class = "AnimEvent"
+								event_class = "AE_SV_PLAYSOUND"
+								event_frame = 0
+								event_keys = 
+								{
+									name = "step"
+								}
+							},
+							{
+								_class = "AnimEvent"
+								event_class = "AE_SV_PLAYSOUND"
+								event_frame = 17
+								event_keys = 
+								{
+									name = "step"
+								}
+							},
+						]
 						activity_name = ""
 						activity_weight = 1
 						weight_list_name = ""
@@ -166,13 +229,34 @@
 						source_filename = "models/raw/chimera/uchimeragm_anims/a_WalkE.smd"
 						start_frame = -1
 						end_frame = -1
-						framerate = -1.0
+						framerate = 45.0
 						take = 0
 						reverse = false
 					},
 					{
 						_class = "AnimFile"
 						name = "a_WalkW"
+						children = 
+						[
+							{
+								_class = "AnimEvent"
+								event_class = "AE_SV_PLAYSOUND"
+								event_frame = 0
+								event_keys = 
+								{
+									name = "step"
+								}
+							},
+							{
+								_class = "AnimEvent"
+								event_class = "AE_SV_PLAYSOUND"
+								event_frame = 17
+								event_keys = 
+								{
+									name = "step"
+								}
+							},
+						]
 						activity_name = ""
 						activity_weight = 1
 						weight_list_name = ""
@@ -187,7 +271,121 @@
 						source_filename = "models/raw/chimera/uchimeragm_anims/a_WalkW.smd"
 						start_frame = -1
 						end_frame = -1
+						framerate = 45.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "jump"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/raw/chimera/uchimeragm_anims/jump.smd"
+						start_frame = -1
+						end_frame = -1
+						framerate = 60.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "jump2"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/raw/chimera/uchimeragm_anims/jump2.smd"
+						start_frame = -1
+						end_frame = -1
 						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "flap_wings"
+						children = 
+						[
+							{
+								_class = "AnimEvent"
+								event_class = "AE_CL_PLAYSOUND"
+								event_frame = 10
+								event_keys = 
+								{
+									name = "double_jump"
+									stop_on_seq_change = false
+									use_layer_sequence = false
+									tags = ""
+								}
+							},
+						]
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/raw/chimera/uchimeragm_anims/jump3.smd"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "roar"
+						children = 
+						[
+							{
+								_class = "AnimEvent"
+								event_class = "AE_CL_PLAYSOUND"
+								event_frame = 0
+								event_keys = 
+								{
+									name = "roar"
+									stop_on_seq_change = false
+									use_layer_sequence = false
+									tags = ""
+								}
+							},
+						]
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/raw/chimera/uchimeragm_anims/idle3.smd"
+						start_frame = -1
+						end_frame = -1
+						framerate = 15.0
 						take = 0
 						reverse = false
 					},

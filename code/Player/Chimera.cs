@@ -6,7 +6,11 @@ partial class PlayerBase
 {
 	public bool ActiveChimera;
 	private TimeSince timeLastBite;
+	private TimeSince timeLastFlew;
+	private TimeSince timeLastRoar;
 
+	[Net]
+	public float ChimeraStaminaAmount { get; private set; } = 200.0f;
 	public void SpawnAsChimera()
 	{
 		CurrentTeam = TeamEnum.Chimera;
@@ -30,14 +34,17 @@ partial class PlayerBase
 			Game.Current.PlaySoundToClient( To.Single( this ), "chimera_spawn" );
 
 
-		if ( All.OfType<ChimeraSpawn>().FirstOrDefault() == null )
+		var spawnpoints = Entity.All.OfType<ChimeraSpawn>();
+		var randomSpawnPoint = spawnpoints.OrderBy( x => Guid.NewGuid() ).FirstOrDefault();
+
+		if ( randomSpawnPoint == null )
 		{
 			Log.Error( "THIS MAP ISN'T SUPPORTED FOR ULTIMATE CHIMERA HUNT" );
 			base.Respawn();
 			return;
 		}
 
-		Position = All.OfType<ChimeraSpawn>().FirstOrDefault().Position;
+		Position = randomSpawnPoint.Position;
 	}
 
 	//When the button on the chimera's back is pressed, turn off the chimera
@@ -59,12 +66,59 @@ partial class PlayerBase
 		return false;
 	}
 
+	public bool CanUseStamina()
+	{
+		if ( ChimeraStaminaAmount > 0.0f )
+			return true;
+
+		return false;
+	}
+
+	public bool CanFly()
+	{
+		if ( timeLastFlew < 0.3f )
+			return false;
+
+		return true;
+	}
+
+	public void FlyUpwards()
+	{
+		if ( !CanUseStamina() )
+			return;
+
+		if ( !CanFly() )
+			return;
+
+		timeLastFlew = 0.0f;
+		ChimeraStaminaAmount -= 25.0f;
+		timeLastSprinted = 0;
+		Velocity += Vector3.Up * 220;
+
+		using(Prediction.Off())
+			Sound.FromEntity( "double_jump", this );
+	}
+
+	public void Roar()
+	{
+		CanMove = false;
+
+		ChimeraStaminaAmount = 0.0f;
+		timeLastSprinted = 0;
+		timeLastRoar = 0;
+
+		using ( Prediction.Off() )
+			Sound.FromEntity( "roar", this );
+
+		SetAnimParameter( "roar", true );
+	}
+
 	public void Bite()
 	{
 		if ( Game.Current.CurrentRoundStatus != Game.RoundEnum.Active ) return;
 
-		var tr = Trace.Sphere(52, EyePosition, EyePosition + EyeRotation.Forward * 115 )
-			.Size( 4 )
+		var tr = Trace.Sphere( 64, EyePosition, EyePosition + EyeRotation.Forward * 105 )
+			.Size( 46 )
 			.Ignore( this )
 			.Run();
 
@@ -76,11 +130,11 @@ partial class PlayerBase
 		timeLastBite = 0;
 		CanMove = false;
 
+
 		if ( tr.Entity is not PlayerBase )
 			return;
 
-		var totalEnts = FindInSphere( tr.EndPosition + 12, 64 );
-
+		var totalEnts = FindInSphere( tr.EndPosition, 64 );
 		foreach(var ent in totalEnts) 
 		{
 			if (ent is PlayerBase player)
@@ -88,9 +142,12 @@ partial class PlayerBase
 				{
 					Game.Current.RoundTimer += 30;
 
-					player.BecomeRagdollOnClient( Velocity, EyePosition + Vector3.Up * 100 );
+					using(Prediction.Off() )
+						Sound.FromEntity( "squeal", player ); 
 
+					player.BecomeRagdollOnClient( Velocity, EyePosition + Rotation.Forward );
 					player.OnKilled();
+					Game.Current.CheckRoundStatus();
 				}
 		}
 	}

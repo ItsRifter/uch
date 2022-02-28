@@ -251,9 +251,17 @@ public partial class PigmaskController : BasePlayerController
 		var ws = Duck.GetWishSpeed();
 		if ( ws >= 0 ) return ws;
 
-		if(Input.Down(InputButton.Run) && Pawn is PlayerBase player)
+		var player = Pawn as PlayerBase;
+
+		if ( !player.IsValid )
+			return DefaultSpeed;
+
+		if ( player.IsScared )
+			return SprintSpeed;
+
+		if (Input.Down(InputButton.Run) )
 		{
-			if ( player.StaminaAmount > 0 )
+			if ( player.StaminaAmount > 0 && !player.staminaExhausted )
 				return SprintSpeed;
 		}
 

@@ -1,16 +1,33 @@
 .statuses {
 	position: absolute;
-	left: 2%;
-	bottom: 50px;
+	left: 25px;
+	bottom: -75px;
 	opacity: 1;
-	width: 250px;
-	height: 50px;
+	width: 512px;
+	height: 256px;
+	background-repeat: no-repeat;
+	background-size: 512px 135px;
 
-	.ensign {
-		box-shadow: 1px 1px rgb(255, 170, 210);
+	&.default {
+		background-image: url(materials/raw/pighud.png);
 	}
 
-	.captain {
-		box-shadow: 1px 1px rgb(0 148 255);
+	&.ensign {
+		background-image: url(materials/raw/pighude.png);
+	}
+
+	&.captain {
+		background-image: url(materials/raw/pighudcap.png);
+	}
+
+	&.major {
+		background-image: url(materials/raw/pighudm.png);
+	}
+
+	&.colonel {
+		background-image: url(materials/raw/pighudcolonel.png);
+	}
+
+	&.chimera {
 	}
 }

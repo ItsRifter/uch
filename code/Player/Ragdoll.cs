@@ -14,7 +14,6 @@ partial class PlayerBase
 		ent.UsePhysicsCollision = true;
 		ent.CollisionGroup = CollisionGroup.Debris;
 		ent.SetModel( "models/player/chimera/chimera_ragdoll.vmdl" );
-		ent.CopyBonesFrom( this );
 		ent.CopyBodyGroups( this );
 		ent.CopyMaterialGroup( this );
 
@@ -42,16 +41,21 @@ partial class PlayerBase
 		ent.MoveType = MoveType.Physics;
 		ent.UsePhysicsCollision = true;
 		ent.CollisionGroup = CollisionGroup.Debris;
-		ent.SetModel( "models/player/pigmask/pigmask_ragdoll.vmdl" );
-		ent.CopyBonesFrom( this );
+		ent.SetModel( GetModelName() );
+
 		ent.CopyBodyGroups( this );
 		ent.CopyMaterialGroup( this );
+		ent.CopyBonesFrom( this );
 
 		ent.EnableHitboxes = false;
 		ent.EnableAllCollisions = true;
 		ent.SurroundingBoundsMode = SurroundingBoundsType.Physics;
 		ent.RenderColor = RenderColor;
-	
+
+		ent.PhysicsBody.Velocity = Vector3.Up * 5000;
+
+		ent.PhysicsBody.ApplyImpulseAt( eyePosChimera, eyePosChimera * ent.PhysicsBody.Mass );
+
 		ent.SetInteractsAs( CollisionLayer.Debris );
 		ent.SetInteractsWith( CollisionLayer.WORLD_GEOMETRY );
 		ent.SetInteractsExclude( CollisionLayer.Player | CollisionLayer.Debris );

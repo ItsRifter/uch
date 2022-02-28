@@ -13,13 +13,11 @@ public partial class Timer : Panel
 	{
 		StyleSheet.Load( "UI/Timer.scss" );
 		TimeLbl = Add.Label("Waiting for players", "timer");
-		
 	}
 
 	public override void Tick()
 	{
 		base.Tick();
-
 
 		TimeSpan timeDuration = TimeSpan.FromSeconds( Game.Current.RoundTimer - Time.Now );
 

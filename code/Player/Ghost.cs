@@ -10,6 +10,7 @@ partial class PlayerBase
 	{
 		CurrentTeam = TeamEnum.Spectator;
 		SetModel( "models/player/ghost/ghost.vmdl" );
+		ResetRank();
 
 		Controller = new GhostController();
 		CameraMode = new UCHCamera();
@@ -36,6 +37,7 @@ partial class PlayerBase
 	{
 		CurrentTeam = TeamEnum.Spectator;
 		SetModel( "models/player/ghost/ghost_fancy.vmdl" );
+		ResetRank();
 
 		Controller = new GhostController();
 		CameraMode = new UCHCamera();
@@ -60,6 +62,7 @@ partial class PlayerBase
 	{
 		CurrentTeam = TeamEnum.Spectator;
 		SetModel( "models/player/ghost/ghost.vmdl" );
+		ResetRank();
 
 		Controller = new GhostController();
 		CameraMode = new UCHCamera();
@@ -70,6 +73,5 @@ partial class PlayerBase
 		EnableShadowInFirstPerson = true;
 
 		Position = location;
-
 	}
 }

@@ -4,6 +4,13 @@ using System.Linq;
 partial class PlayerBase
 {
 	private TimeSince timeSinceTaunt;
+	private TimeSince timeLastScared;
+
+	private float StaminaMaxAmount;
+	private float timeRandomSnort = 0.0f;
+
+	public bool staminaExhausted = false;
+	public bool IsScared = false;
 
 	public enum PigRank
 	{
@@ -13,11 +20,19 @@ partial class PlayerBase
 		Colonel
 	}
 
-	public PigRank CurrentPigRank = PigRank.Ensign;
+
+	[Net, Change( nameof( OnRankChange ) )]
+	public PigRank CurrentPigRank { get; private set; } = PigRank.Ensign;
+
+	public void OnRankChange( PigRank oldRank, PigRank newRank )
+	{
+	}
 
 	public void SpawnAsPigmask()
 	{
 		CurrentTeam = TeamEnum.Pigmask;
+
+		timeRandomSnort = Rand.Float(5.0f, 12.0f) + Time.Now;
 
 		Controller = new PigmaskController();
 		CameraMode = new UCHCamera();
@@ -33,26 +48,28 @@ partial class PlayerBase
 		{
 			SetModel( "models/player/pigmask/pigmask.vmdl" );
 			spawnSound = "ensign_spawn";
-			StaminaAmount = 100.0f;
+			StaminaMaxAmount = 100.0f;
 		}
 		else if ( CurrentPigRank == PigRank.Captain )
 		{
 			SetModel( "models/player/pigmask/pigmask_captain.vmdl" );
 			spawnSound = "captain_spawn";
-			StaminaAmount = 125.0f;
+			StaminaMaxAmount = 125.0f;
 		}
 		else if ( CurrentPigRank == PigRank.Major )
 		{
 			SetModel( "models/player/pigmask/pigmask_major.vmdl" );
 			spawnSound = "major_spawn";
-			StaminaAmount = 150.0f;
+			StaminaMaxAmount = 150.0f;
 		}
 		else if ( CurrentPigRank == PigRank.Colonel )
 		{
 			SetModel( "models/player/pigmask/pigmask_colonel.vmdl" );
 			spawnSound = "colonel_spawn";
-			StaminaAmount = 200.0f;
+			StaminaMaxAmount = 200.0f;
 		}
+
+		StaminaAmount = StaminaMaxAmount;
 
 		using ( Prediction.Off() )
 			Game.Current.PlaySoundToClient( To.Single( this ), spawnSound );
@@ -72,15 +89,13 @@ partial class PlayerBase
 	}
 	public void Taunt()
 	{
-		Log.Info( "Taunting" );
-
 		CameraMode = new UCHTauntCamera();
 
 		timeSinceTaunt = 0;
-		IsTaunting = true;
+		isTaunting = true;
 		CanMove = false;
 
-		SetAnimParameter( "taunt", true );
+		SetAnimParameter( "b_taunt", true );
 	}
 
 	public void ResetRank()

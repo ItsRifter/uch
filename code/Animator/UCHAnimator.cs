@@ -8,7 +8,7 @@ public class UCHAnimator : PawnAnimator
 
 	public override void Simulate()
 	{
-		var player = Pawn as Player;
+		var player = Pawn as PlayerBase;
 		var idealRotation = Rotation.LookAt( Input.Rotation.Forward.WithZ( 0 ), Vector3.Up );
 
 		DoRotation( idealRotation );
@@ -22,6 +22,8 @@ public class UCHAnimator : PawnAnimator
 		SetAnimParameter( "b_grounded", GroundEntity != null || noclip );
 		SetAnimParameter( "b_noclip", noclip );
 		SetAnimParameter( "b_swim", Pawn.WaterLevel > 0.5f );
+		if (player.CurrentTeam == PlayerBase.TeamEnum.Chimera)
+			SetAnimParameter( "b_jump", GroundEntity == null && Input.Pressed( InputButton.Jump ) && player.CanFly() );
 
 		if ( Host.IsClient && Client.IsValid() )
 		{
@@ -72,6 +74,9 @@ public class UCHAnimator : PawnAnimator
 	{
 		// Move Speed
 		{
+			if ( !Pawn.IsValid )
+				return;
+
 			var dir = Velocity;
 			var forward = Rotation.Forward.Dot( dir );
 			var sideward = Rotation.Right.Dot( dir );
