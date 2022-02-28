@@ -65,7 +65,7 @@
 					m_id = 1160845657
 				}
 				m_previewButton = "ANIMPARAM_BUTTON_NONE"
-				m_bNetwork = false
+				m_bNetwork = true
 				m_bUseMostRecentValue = false
 				m_bAutoReset = true
 				m_bPredicted = false
@@ -121,7 +121,7 @@
 					m_id = 141206006
 				}
 				m_previewButton = "ANIMPARAM_BUTTON_NONE"
-				m_bNetwork = false
+				m_bNetwork = true
 				m_bUseMostRecentValue = false
 				m_bAutoReset = true
 				m_bPredicted = false

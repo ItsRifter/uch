@@ -118,70 +118,76 @@
 						point1 = [ -8.792074, 5.26209, 0.10215 ]
 					},
 					{
-						_class = "PhysicsShapeSphere"
+						_class = "PhysicsShapeCapsule"
 						parent_bone = "stgnewporkultimatechimera_llegj"
 						surface_prop = "default"
 						collision_group = ""
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 1.0
-						center = [ 0.0, 0.0, 0.0 ]
+						radius = 4.83004
+						point0 = [ 0.0, 0.0, 0.0 ]
+						point1 = [ 0.145087, 1.421743, -9.594593 ]
 					},
 					{
-						_class = "PhysicsShapeSphere"
+						_class = "PhysicsShapeCapsule"
 						parent_bone = "stgnewporkultimatechimera_lkneej"
 						surface_prop = "default"
 						collision_group = ""
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 1.0
-						center = [ 0.0, 0.0, 0.0 ]
+						radius = 4.65881
+						point0 = [ 0.0, 0.0, 0.0 ]
+						point1 = [ -0.012659, 5.10752, -5.019027 ]
 					},
 					{
-						_class = "PhysicsShapeSphere"
+						_class = "PhysicsShapeCapsule"
 						parent_bone = "stgnewporkultimatechimera_lfootj"
 						surface_prop = "default"
 						collision_group = ""
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 1.0
-						center = [ 0.0, 0.0, 0.0 ]
+						radius = 4.65881
+						point0 = [ 0.0, 0.0, 0.0 ]
+						point1 = [ 0.345297, -2.654196, -6.013158 ]
 					},
 					{
-						_class = "PhysicsShapeSphere"
+						_class = "PhysicsShapeCapsule"
 						parent_bone = "stgnewporkultimatechimera_rlegj"
 						surface_prop = "default"
 						collision_group = ""
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 1.0
-						center = [ 0.0, 0.0, 0.0 ]
+						radius = 4.65881
+						point0 = [ 0.0, 0.0, 0.0 ]
+						point1 = [ -0.557296, -1.377345, 8.025675 ]
 					},
 					{
-						_class = "PhysicsShapeSphere"
+						_class = "PhysicsShapeCapsule"
 						parent_bone = "stgnewporkultimatechimera_rkneej"
 						surface_prop = "default"
 						collision_group = ""
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 1.0
-						center = [ 0.0, 0.0, 0.0 ]
+						radius = 4.65881
+						point0 = [ 0.0, 0.0, 0.0 ]
+						point1 = [ -0.168699, -5.388475, 5.361104 ]
 					},
 					{
-						_class = "PhysicsShapeSphere"
+						_class = "PhysicsShapeCapsule"
 						parent_bone = "stgnewporkultimatechimera_rfootj"
 						surface_prop = "default"
 						collision_group = ""
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 1.0
-						center = [ 0.0, 0.0, 0.0 ]
+						radius = 4.65881
+						point0 = [ 0.0, 0.0, 0.0 ]
+						point1 = [ 0.172702, 1.410199, 6.952138 ]
 					},
 					{
 						_class = "PhysicsShapeCapsule"
@@ -349,19 +355,32 @@
 						point1 = [ -0.340563, -6.068576, -8.07799 ]
 					},
 					{
-						_class = "PhysicsShapeSphere"
+						_class = "PhysicsShapeCapsule"
 						parent_bone = "stgnewporkultimatechimera_rshoulderj"
 						surface_prop = "default"
 						collision_group = ""
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 1.0
-						center = [ 0.0, 0.0, 0.0 ]
+						radius = 4.65881
+						point0 = [ 0.0, 0.0, 0.0 ]
+						point1 = [ 0.256032, 0.000053, 6.267061 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "stgnewporkultimatechimera_rarmj"
+						surface_prop = "default"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						radius = 4.65881
+						point0 = [ 0.0, 0.0, 0.0 ]
+						point1 = [ 0.322617, 3.442787, 8.139799 ]
 					},
 					{
 						_class = "PhysicsShapeSphere"
-						parent_bone = "stgnewporkultimatechimera_rarmj"
+						parent_bone = "stgnewporkultimatechimera_jmouthn"
 						surface_prop = "default"
 						collision_group = ""
 						collision_interact_as = ""

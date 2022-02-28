@@ -110,7 +110,7 @@ partial class PlayerBase
 		using ( Prediction.Off() )
 			Sound.FromEntity( "roar", this );
 
-		SetAnimParameter( "roar", true );
+		SetAnimParameter( "b_roar", true );
 	}
 
 	public void Bite()
@@ -125,7 +125,7 @@ partial class PlayerBase
 		using ( Prediction.Off() )
 			Sound.FromEntity( "bite", this );
 
-		SetAnimParameter( "bite", true );
+		SetAnimParameter( "b_bite", true );
 
 		timeLastBite = 0;
 		CanMove = false;
