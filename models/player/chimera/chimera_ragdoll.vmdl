@@ -95,6 +95,17 @@
 				children = 
 				[
 					{
+						_class = "PhysicsShapeSphere"
+						parent_bone = "stgnewporkultimatechimera_rotn"
+						surface_prop = "default"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						radius = 1.0
+						center = [ 0.0, 0.0, 0.0 ]
+					},
+					{
 						_class = "PhysicsShapeCapsule"
 						parent_bone = "stgnewporkultimatechimera_hipn"
 						surface_prop = "default"
@@ -102,9 +113,9 @@
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 8.306879
-						point0 = [ 16.61376, 0.0, 0.0 ]
-						point1 = [ -16.613756, 0.0, 0.0 ]
+						radius = 5.141474
+						point0 = [ 6.874456, 5.26209, 0.10215 ]
+						point1 = [ -8.792074, 5.26209, 0.10215 ]
 					},
 					{
 						_class = "PhysicsShapeSphere"
@@ -131,17 +142,6 @@
 					{
 						_class = "PhysicsShapeSphere"
 						parent_bone = "stgnewporkultimatechimera_lfootj"
-						surface_prop = "default"
-						collision_group = ""
-						collision_interact_as = ""
-						collision_interact_with = ""
-						collision_interact_exclude = ""
-						radius = 1.0
-						center = [ 0.0, 0.0, 0.0 ]
-					},
-					{
-						_class = "PhysicsShapeSphere"
-						parent_bone = "stgnewporkultimatechimera_ltoen"
 						surface_prop = "default"
 						collision_group = ""
 						collision_interact_as = ""
@@ -184,70 +184,64 @@
 						center = [ 0.0, 0.0, 0.0 ]
 					},
 					{
-						_class = "PhysicsShapeSphere"
-						parent_bone = "stgnewporkultimatechimera_rtoen"
-						surface_prop = "default"
-						collision_group = ""
-						collision_interact_as = ""
-						collision_interact_with = ""
-						collision_interact_exclude = ""
-						radius = 1.0
-						center = [ 0.0, 0.0, 0.0 ]
-					},
-					{
-						_class = "PhysicsShapeSphere"
+						_class = "PhysicsShapeCapsule"
 						parent_bone = "stgnewporkultimatechimera_tailna"
 						surface_prop = "default"
 						collision_group = ""
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 1.0
-						center = [ 0.0, 0.0, 0.0 ]
+						radius = 1.747574
+						point0 = [ 0.0, 0.0, 0.0 ]
+						point1 = [ 0.060049, 8.273523, 0.0 ]
 					},
 					{
-						_class = "PhysicsShapeSphere"
+						_class = "PhysicsShapeCapsule"
 						parent_bone = "stgnewporkultimatechimera_tailnb"
 						surface_prop = "default"
 						collision_group = ""
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 1.0
-						center = [ 0.0, 0.0, 0.0 ]
+						radius = 1.70793
+						point0 = [ 0.0, 0.0, 0.0 ]
+						point1 = [ 0.116769, 17.491337, 0.0 ]
 					},
 					{
-						_class = "PhysicsShapeSphere"
+						_class = "PhysicsShapeCapsule"
 						parent_bone = "stgnewporkultimatechimera_tailnc"
 						surface_prop = "default"
 						collision_group = ""
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 1.0
-						center = [ 0.0, 0.0, 0.0 ]
+						radius = 1.814856
+						point0 = [ 0.0, 0.0, 0.0 ]
+						point1 = [ 0.103794, 15.016082, 0.0 ]
 					},
 					{
-						_class = "PhysicsShapeSphere"
+						_class = "PhysicsShapeCapsule"
 						parent_bone = "stgnewporkultimatechimera_tailnd"
 						surface_prop = "default"
 						collision_group = ""
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 1.0
-						center = [ -0.0, 0.0, 0.0 ]
+						radius = 2.119528
+						point0 = [ 0.0, 0.0, 0.0 ]
+						point1 = [ 0.092297, 16.387989, 0.0 ]
 					},
 					{
-						_class = "PhysicsShapeSphere"
+						_class = "PhysicsShapeCapsule"
 						parent_bone = "stgnewporkultimatechimera_tailne"
 						surface_prop = "default"
 						collision_group = ""
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 1.0
-						center = [ 0.0, 0.0, 0.0 ]
+						radius = 4.173773
+						point0 = [ 0.0, 0.0, 0.0 ]
+						point1 = [ -0.178623, 22.600489, 0.0 ]
 					},
 					{
 						_class = "PhysicsShapeCapsule"
@@ -257,20 +251,9 @@
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 9.044398
-						point0 = [ 18.088797, 0.0, 0.0 ]
-						point1 = [ -18.088797, 0.0, 0.0 ]
-					},
-					{
-						_class = "PhysicsShapeSphere"
-						parent_bone = "stgnewporkultimatechimera_agon"
-						surface_prop = "default"
-						collision_group = ""
-						collision_interact_as = ""
-						collision_interact_with = ""
-						collision_interact_exclude = ""
-						radius = 1.0
-						center = [ 0.0, 0.0, 0.0 ]
+						radius = 5.417317
+						point0 = [ 6.566505, 0.0, 0.0 ]
+						point1 = [ -6.610895, 0.0, 0.0 ]
 					},
 					{
 						_class = "PhysicsShapeCapsule"
@@ -280,54 +263,90 @@
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 19.0
-						point0 = [ -0.190504, -42.462265, 14.387406 ]
-						point1 = [ -0.515388, -18.192726, 9.475564 ]
+						radius = 6.834336
+						point0 = [ 13.668674, 0.0, 0.0 ]
+						point1 = [ -13.668671, 0.0, 0.0 ]
 					},
 					{
-						_class = "PhysicsShapeCapsule"
-						parent_bone = "stgnewporkultimatechimera_torin"
+						_class = "PhysicsShapeSphere"
+						parent_bone = "stgnewporkultimatechimera_jmouthn"
 						surface_prop = "default"
 						collision_group = ""
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 2.29624
-						point0 = [ 4.592479, 0.0, 0.0 ]
-						point1 = [ -4.592479, 0.0, 0.0 ]
+						radius = 1.0
+						center = [ 0.0, 0.0, 0.0 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "stgnewporkultimatechimera_lwingna"
+						surface_prop = "default"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						radius = 2.56
+						point0 = [ 10.239999, 0.0, 0.0 ]
+						point1 = [ 0.0, 0.0, 0.0 ]
 					},
 					{
 						_class = "PhysicsShapeSphere"
+						parent_bone = "stgnewporkultimatechimera_lwingnb"
+						surface_prop = "default"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						radius = 1.0
+						center = [ 0.0, 0.0, 0.0 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
+						parent_bone = "stgnewporkultimatechimera_rwingna"
+						surface_prop = "default"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						radius = 2.559999
+						point0 = [ 0.0, 0.0, 0.0 ]
+						point1 = [ -10.239998, 0.0, 0.0 ]
+					},
+					{
+						_class = "PhysicsShapeSphere"
+						parent_bone = "stgnewporkultimatechimera_rwingnb"
+						surface_prop = "default"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						radius = 1.0
+						center = [ 0.0, 0.0, 0.0 ]
+					},
+					{
+						_class = "PhysicsShapeCapsule"
 						parent_bone = "stgnewporkultimatechimera_lshoulderj"
 						surface_prop = "default"
 						collision_group = ""
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 1.0
-						center = [ 0.0, 0.0, 0.0 ]
+						radius = 4.830043
+						point0 = [ -0.000026, 0.85574, 5.20591 ]
+						point1 = [ -0.446257, -0.000075, -2.948177 ]
 					},
 					{
-						_class = "PhysicsShapeSphere"
+						_class = "PhysicsShapeCapsule"
 						parent_bone = "stgnewporkultimatechimera_larmj"
 						surface_prop = "default"
 						collision_group = ""
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 1.0
-						center = [ 0.0, 0.0, 0.0 ]
-					},
-					{
-						_class = "PhysicsShapeSphere"
-						parent_bone = "stgnewporkultimatechimera_lhandn"
-						surface_prop = "default"
-						collision_group = ""
-						collision_interact_as = ""
-						collision_interact_with = ""
-						collision_interact_exclude = ""
-						radius = 1.0
-						center = [ 0.0, 0.0, 0.0 ]
+						radius = 4.65881
+						point0 = [ 0.0, 0.0, 0.0 ]
+						point1 = [ -0.340563, -6.068576, -8.07799 ]
 					},
 					{
 						_class = "PhysicsShapeSphere"
@@ -351,34 +370,27 @@
 						radius = 1.0
 						center = [ 0.0, 0.0, 0.0 ]
 					},
-					{
-						_class = "PhysicsShapeSphere"
-						parent_bone = "stgnewporkultimatechimera_rhandn"
-						surface_prop = "default"
-						collision_group = ""
-						collision_interact_as = ""
-						collision_interact_with = ""
-						collision_interact_exclude = ""
-						radius = 1.0
-						center = [ 0.0, 0.0, 0.0 ]
-					},
-					{
-						_class = "PhysicsShapeSphere"
-						parent_bone = "stgnewporkultimatechimera_topn"
-						surface_prop = "default"
-						collision_group = ""
-						collision_interact_as = ""
-						collision_interact_with = ""
-						collision_interact_exclude = ""
-						radius = 1.0
-						center = [ 0.0, 0.0, 0.0 ]
-					},
 				]
 			},
 			{
 				_class = "PhysicsJointList"
 				children = 
 				[
+					{
+						_class = "PhysicsJointConical"
+						parent_body = "stgnewporkultimatechimera_rotn"
+						child_body = "stgnewporkultimatechimera_hipn"
+						anchor_origin = [ 0.0, 0.0, 0.0 ]
+						anchor_angles = [ -0.0, -90.0, -90.0 ]
+						collision_enabled = false
+						friction = 0.1
+						enable_swing_limit = true
+						swing_limit = 30.0
+						swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+						enable_twist_limit = true
+						min_twist_angle = -15.0
+						max_twist_angle = 15.0
+					},
 					{
 						_class = "PhysicsJointConical"
 						parent_body = "stgnewporkultimatechimera_hipn"
@@ -426,21 +438,6 @@
 					},
 					{
 						_class = "PhysicsJointConical"
-						parent_body = "stgnewporkultimatechimera_lfootj"
-						child_body = "stgnewporkultimatechimera_ltoen"
-						anchor_origin = [ 0.000002, -1.759565, -6.268448 ]
-						anchor_angles = [ -0.0, -90.0, -90.0 ]
-						collision_enabled = false
-						friction = 0.1
-						enable_swing_limit = true
-						swing_limit = 30.0
-						swing_offset_angle = [ 0.0, 0.0, 0.0 ]
-						enable_twist_limit = true
-						min_twist_angle = -15.0
-						max_twist_angle = 15.0
-					},
-					{
-						_class = "PhysicsJointConical"
 						parent_body = "stgnewporkultimatechimera_hipn"
 						child_body = "stgnewporkultimatechimera_rlegj"
 						anchor_origin = [ -16.613758, 7.868514, -6.635649 ]
@@ -475,21 +472,6 @@
 						child_body = "stgnewporkultimatechimera_rfootj"
 						anchor_origin = [ 0.0, -5.828576, 5.828539 ]
 						anchor_angles = [ -0.0, -90.0, -90.0 ]
-						collision_enabled = false
-						friction = 0.1
-						enable_swing_limit = true
-						swing_limit = 30.0
-						swing_offset_angle = [ 0.0, 0.0, 0.0 ]
-						enable_twist_limit = true
-						min_twist_angle = -15.0
-						max_twist_angle = 15.0
-					},
-					{
-						_class = "PhysicsJointConical"
-						parent_body = "stgnewporkultimatechimera_rfootj"
-						child_body = "stgnewporkultimatechimera_rtoen"
-						anchor_origin = [ -0.000002, 1.759585, 6.268445 ]
-						anchor_angles = [ -0.0, 90.0, -90.0 ]
 						collision_enabled = false
 						friction = 0.1
 						enable_swing_limit = true
@@ -579,7 +561,7 @@
 						parent_body = "stgnewporkultimatechimera_hipn"
 						child_body = "stgnewporkultimatechimera_waistn"
 						anchor_origin = [ -0.000001, -6.317984, 0.182659 ]
-						anchor_angles = [ -0.0, 180.0, -90.0 ]
+						anchor_angles = [ -0.0, 90.0, -90.0 ]
 						collision_enabled = false
 						friction = 0.1
 						enable_swing_limit = true
@@ -594,7 +576,82 @@
 						parent_body = "stgnewporkultimatechimera_waistn"
 						child_body = "stgnewporkultimatechimera_headn"
 						anchor_origin = [ -0.0, 1.319674, 2.969265 ]
-						anchor_angles = [ -0.0, 180.0, -90.0 ]
+						anchor_angles = [ -0.0, 90.0, -90.0 ]
+						collision_enabled = false
+						friction = 0.1
+						enable_swing_limit = true
+						swing_limit = 30.0
+						swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+						enable_twist_limit = true
+						min_twist_angle = -15.0
+						max_twist_angle = 15.0
+					},
+					{
+						_class = "PhysicsJointConical"
+						parent_body = "stgnewporkultimatechimera_headn"
+						child_body = "stgnewporkultimatechimera_jmouthn"
+						anchor_origin = [ -0.000008, -36.039043, 5.709538 ]
+						anchor_angles = [ -0.0, 90.0, -90.0 ]
+						collision_enabled = false
+						friction = 0.1
+						enable_swing_limit = true
+						swing_limit = 30.0
+						swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+						enable_twist_limit = true
+						min_twist_angle = -15.0
+						max_twist_angle = 15.0
+					},
+					{
+						_class = "PhysicsJointConical"
+						parent_body = "stgnewporkultimatechimera_headn"
+						child_body = "stgnewporkultimatechimera_lwingna"
+						anchor_origin = [ 13.668673, -10.68541, 12.400223 ]
+						anchor_angles = [ -0.0, -90.0, -90.0 ]
+						collision_enabled = false
+						friction = 0.1
+						enable_swing_limit = true
+						swing_limit = 30.0
+						swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+						enable_twist_limit = true
+						min_twist_angle = -15.0
+						max_twist_angle = 15.0
+					},
+					{
+						_class = "PhysicsJointConical"
+						parent_body = "stgnewporkultimatechimera_lwingna"
+						child_body = "stgnewporkultimatechimera_lwingnb"
+						anchor_origin = [ 10.239997, -5.120008, 19.199997 ]
+						anchor_angles = [ 48.590397, -49.106544, -40.893337 ]
+						collision_enabled = false
+						friction = 0.1
+						enable_swing_limit = true
+						swing_limit = 30.0
+						swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+						enable_twist_limit = true
+						min_twist_angle = -15.0
+						max_twist_angle = 15.0
+					},
+					{
+						_class = "PhysicsJointConical"
+						parent_body = "stgnewporkultimatechimera_headn"
+						child_body = "stgnewporkultimatechimera_rwingna"
+						anchor_origin = [ -13.668676, -10.685407, 12.400063 ]
+						anchor_angles = [ 0.000017, -90.000008, 90.0 ]
+						collision_enabled = false
+						friction = 0.1
+						enable_swing_limit = true
+						swing_limit = 30.0
+						swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+						enable_twist_limit = true
+						min_twist_angle = -15.0
+						max_twist_angle = 15.0
+					},
+					{
+						_class = "PhysicsJointConical"
+						parent_body = "stgnewporkultimatechimera_rwingna"
+						child_body = "stgnewporkultimatechimera_rwingnb"
+						anchor_origin = [ -10.240005, 5.120007, -19.200016 ]
+						anchor_angles = [ -48.590389, 130.893448, -139.106659 ]
 						collision_enabled = false
 						friction = 0.1
 						enable_swing_limit = true
@@ -609,7 +666,7 @@
 						parent_body = "stgnewporkultimatechimera_waistn"
 						child_body = "stgnewporkultimatechimera_lshoulderj"
 						anchor_origin = [ 18.088795, -9.127747, -11.987041 ]
-						anchor_angles = [ -0.0, 180.0, -90.0 ]
+						anchor_angles = [ -0.0, -90.0, -90.0 ]
 						collision_enabled = false
 						friction = 0.1
 						enable_swing_limit = true
@@ -624,22 +681,7 @@
 						parent_body = "stgnewporkultimatechimera_lshoulderj"
 						child_body = "stgnewporkultimatechimera_larmj"
 						anchor_origin = [ -0.000004, -0.549867, -9.457664 ]
-						anchor_angles = [ -0.0, 180.0, -90.0 ]
-						collision_enabled = false
-						friction = 0.1
-						enable_swing_limit = true
-						swing_limit = 30.0
-						swing_offset_angle = [ 0.0, 0.0, 0.0 ]
-						enable_twist_limit = true
-						min_twist_angle = -15.0
-						max_twist_angle = 15.0
-					},
-					{
-						_class = "PhysicsJointConical"
-						parent_body = "stgnewporkultimatechimera_larmj"
-						child_body = "stgnewporkultimatechimera_lhandn"
-						anchor_origin = [ 0.000002, -3.811649, -7.346176 ]
-						anchor_angles = [ -0.0, 180.0, -90.0 ]
+						anchor_angles = [ -0.0, 90.0, -90.0 ]
 						collision_enabled = false
 						friction = 0.1
 						enable_swing_limit = true
@@ -654,7 +696,7 @@
 						parent_body = "stgnewporkultimatechimera_waistn"
 						child_body = "stgnewporkultimatechimera_rshoulderj"
 						anchor_origin = [ -18.088806, -9.127741, -11.987007 ]
-						anchor_angles = [ -0.000017, 0.0, 90.0 ]
+						anchor_angles = [ -0.000017, -90.000008, 90.000008 ]
 						collision_enabled = false
 						friction = 0.1
 						enable_swing_limit = true
@@ -669,22 +711,7 @@
 						parent_body = "stgnewporkultimatechimera_rshoulderj"
 						child_body = "stgnewporkultimatechimera_rarmj"
 						anchor_origin = [ -0.000004, 0.549856, 9.457657 ]
-						anchor_angles = [ -0.0, 0.0, -90.0 ]
-						collision_enabled = false
-						friction = 0.1
-						enable_swing_limit = true
-						swing_limit = 30.0
-						swing_offset_angle = [ 0.0, 0.0, 0.0 ]
-						enable_twist_limit = true
-						min_twist_angle = -15.0
-						max_twist_angle = 15.0
-					},
-					{
-						_class = "PhysicsJointConical"
-						parent_body = "stgnewporkultimatechimera_rarmj"
-						child_body = "stgnewporkultimatechimera_rhandn"
-						anchor_origin = [ 0.0, 3.811649, 7.346172 ]
-						anchor_angles = [ -0.0, 0.0, -90.0 ]
+						anchor_angles = [ -0.0, 90.0, -90.0 ]
 						collision_enabled = false
 						friction = 0.1
 						enable_swing_limit = true
