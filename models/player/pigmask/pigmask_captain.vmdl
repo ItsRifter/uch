@@ -547,7 +547,7 @@
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 6.0
+						radius = 16.78385
 						point0 = [ 2.078949, 0.0, 0.0 ]
 						point1 = [ -3.784247, 0.0, 0.0 ]
 					},
@@ -559,7 +559,7 @@
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 4.435303
+						radius = 16.320507
 						point0 = [ 17.741213, 0.0, 0.0 ]
 						point1 = [ 0.0, 0.0, 0.0 ]
 					},
@@ -571,7 +571,7 @@
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 1.633253
+						radius = 19.830782
 						point0 = [ 6.533012, 0.0, 0.0 ]
 						point1 = [ 0.0, 0.0, 0.0 ]
 					},
@@ -583,7 +583,7 @@
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 1.572983
+						radius = 3.864159
 						point0 = [ 0.0, 0.0, 0.0 ]
 						point1 = [ -6.291931, 0.0, 0.0 ]
 					},
@@ -619,7 +619,7 @@
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 1.572985
+						radius = 3.86416
 						point0 = [ 6.291939, 0.0, 0.0 ]
 						point1 = [ 0.0, 0.0, 0.0 ]
 					},
@@ -679,7 +679,7 @@
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 1.7235
+						radius = 2.6
 						point0 = [ 0.0, 0.0, 0.0 ]
 						point1 = [ -6.894, 0.0, 0.0 ]
 					},
@@ -715,7 +715,7 @@
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 1.7235
+						radius = 2.6
 						point0 = [ 6.894, 0.0, 0.0 ]
 						point1 = [ 0.0, 0.0, 0.0 ]
 					},

@@ -4,12 +4,9 @@ using System.Collections.Generic;
 
 public partial class Game
 {
-
 	[Net] public float RoundTimer { get; set; }
 
-	private TimeSince timeTillUpdate;
 	private PlayerBase lastChimera;
-
 	public enum RoundEnum
 	{
 		Idle,
@@ -99,6 +96,8 @@ public partial class Game
 	public void BeginActiveRound()
 	{
 		if ( CurrentRoundStatus == RoundEnum.Active ) return;
+
+		Map.Reset(DefaultCleanupFilter);
 
 		using ( Prediction.Off() )
 			StopMusicClient( To.Everyone );

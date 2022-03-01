@@ -4,8 +4,6 @@ using System.Linq;
 
 partial class PlayerBase
 {
-	private Vector3 restorePos;
-
 	public void SpawnAsGhost()
 	{
 		CurrentTeam = TeamEnum.Spectator;

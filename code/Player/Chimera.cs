@@ -5,12 +5,18 @@ using System.Linq;
 partial class PlayerBase
 {
 	public bool ActiveChimera;
+
 	private TimeSince timeLastBite;
 	private TimeSince timeLastFlew;
 	private TimeSince timeLastRoar;
+	private TimeSince timeLastTailwhip;
 
 	[Net]
 	public float ChimeraStaminaAmount { get; private set; } = 200.0f;
+
+	[Net]
+	public float ChimeraTailStaminaAmount { get; private set; } = 100.0f;
+
 	public void SpawnAsChimera()
 	{
 		CurrentTeam = TeamEnum.Chimera;
@@ -73,6 +79,13 @@ partial class PlayerBase
 
 		return false;
 	}
+	public bool CanTailwhip()
+	{
+		if ( ChimeraTailStaminaAmount < 50.0f || timeLastTailwhip < 0.8f)
+			return false;
+
+		return true;
+	}
 
 	public bool CanFly()
 	{
@@ -113,14 +126,50 @@ partial class PlayerBase
 		SetAnimParameter( "b_roar", true );
 	}
 
+
+	public void Tailwhip()
+	{
+		if ( !CanTailwhip() )
+			return;
+
+		Log.Info( "Tail whip" );
+
+		using ( Prediction.Off() )
+			Sound.FromEntity( "tailwhip", this );
+
+		SetAnimParameter( "b_tailwhip", true );
+
+		var tr = Trace.Sphere( 64, EyePosition, EyePosition - EyeRotation.Forward * 105 )
+			.Size( 2 )
+			.Ignore( this )
+			.Run();
+
+		if ( !tr.Hit || tr.StartedSolid )
+			return;
+
+		var totalEnts = FindInSphere( tr.EndPosition, 122 );
+		foreach ( var ent in totalEnts )
+		{
+			if ( ent is not PlayerBase || ent == this )
+				continue;
+
+			if ( ent is PlayerBase player )
+				if ( player.CurrentTeam == TeamEnum.Pigmask )
+				{
+					player.Position += Vector3.Up * 35;
+					player.Velocity += Vector3.Up * 1000;
+					player.isWhipped = true;
+					player.timeLastWhipped = 0;
+				}
+		}
+
+		ChimeraTailStaminaAmount -= 50.0f;
+		timeLastTailwhip = 0;
+	}
+
 	public void Bite()
 	{
 		if ( Game.Current.CurrentRoundStatus != Game.RoundEnum.Active ) return;
-
-		var tr = Trace.Sphere( 64, EyePosition, EyePosition + EyeRotation.Forward * 105 )
-			.Size( 46 )
-			.Ignore( this )
-			.Run();
 
 		using ( Prediction.Off() )
 			Sound.FromEntity( "bite", this );
@@ -130,13 +179,30 @@ partial class PlayerBase
 		timeLastBite = 0;
 		CanMove = false;
 
+		var tr = Trace.Sphere( 64, EyePosition, EyePosition + EyeRotation.Forward * 105 )
+			.Size( 2 )
+			.Ignore( this )
+			.Run();
 
-		if ( tr.Entity is not PlayerBase )
+		if ( tr.Entity is BreakableWall wall )
+		{
+			DamageInfo dmgInfo = new DamageInfo();
+			dmgInfo.Attacker = this;
+			dmgInfo.Damage = 1;
+
+			wall.TakeDamage( dmgInfo );
+			return;
+		}
+
+		if ( !tr.Hit || tr.StartedSolid )
 			return;
 
 		var totalEnts = FindInSphere( tr.EndPosition, 64 );
 		foreach(var ent in totalEnts) 
 		{
+			if ( ent is not PlayerBase || ent == this )
+				continue;
+
 			if (ent is PlayerBase player)
 				if ( player.CurrentTeam == TeamEnum.Pigmask )
 				{

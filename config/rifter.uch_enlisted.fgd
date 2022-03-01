@@ -14,13 +14,31 @@
 ]
 
 //
+// BreakableWall
+//
+@PointClass base(BaseProperties_rifter_uch_enlisted) tags( SupportsSolids ) model() = uch_breakable : "Acts the same as a func_breakable"
+[
+	model(resource:vmdl) { report = true hide_when_solid = true }: "World Model" : "" : "The model this entity should use."
+	skin(materialgroup) { group = "Rendering" hide_when_solid = true } : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
+	bodygroups(bodygroupchoices) { group = "Rendering" hide_when_solid = true } : "Body Groups" : "" : "Some models have multiple variations of certain items, such as characters having different hair styles, etc."
+	rendercolor(color255) { alpha = true } : "Color (R G B A)" : "255 255 255 255" : "The color tint of this entity."
+	health_until_break(float) : "Health Until Break" : 0 : ""
+	can_pigmasks_destroy_this(boolean) : "Can Pigmasks Destroy" : 0 : ""
+	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+
+	output OnBroken(void) : ""
+]
+
+//
 // ChimeraSpawn
 //
 @PointClass base(BaseProperties_rifter_uch_enlisted) editormodel( "models/player/chimera/chimera.vmdl" ) 
 metadata
 {
 	entity_tool_name = "Chimera Spawnpoint"
-	entity_tool_group = "Player"
+	entity_tool_group = "UCH"
 	entity_tool_tip = "Defines a point where the chimera can spawn"
 }
 = info_chimera_start : ""
@@ -34,7 +52,7 @@ metadata
 metadata
 {
 	entity_tool_name = "Pigmask Spawnpoint"
-	entity_tool_group = "Player"
+	entity_tool_group = "UCH"
 	entity_tool_tip = "Defines a point where a pigmask can spawn (or spectator)"
 }
 = info_pigmask_start : ""

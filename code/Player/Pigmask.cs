@@ -5,12 +5,14 @@ partial class PlayerBase
 {
 	private TimeSince timeSinceTaunt;
 	private TimeSince timeLastScared;
+	private TimeSince timeLastWhipped;
 
 	private float StaminaMaxAmount;
 	private float timeRandomSnort = 0.0f;
 
 	public bool staminaExhausted = false;
 	public bool IsScared = false;
+	private bool isWhipped = false;
 
 	public enum PigRank
 	{
@@ -91,11 +93,20 @@ partial class PlayerBase
 	{
 		CameraMode = new UCHTauntCamera();
 
-		timeSinceTaunt = 0;
+		
 		isTaunting = true;
 		CanMove = false;
 
-		SetAnimParameter( "b_taunt", true );
+		if ( CurrentPigRank == PigRank.Colonel )
+		{
+			SetAnimParameter( "b_taunt2", true );
+			timeSinceTaunt = -1.0f;
+		}
+		else
+		{
+			SetAnimParameter( "b_taunt", true );
+			timeSinceTaunt = 0;
+		}
 	}
 
 	public void ResetRank()

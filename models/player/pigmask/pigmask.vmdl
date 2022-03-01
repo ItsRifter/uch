@@ -135,27 +135,6 @@
 					},
 					{
 						_class = "AnimFile"
-						name = "taunt2"
-						activity_name = ""
-						activity_weight = 1
-						weight_list_name = ""
-						fade_in_time = 0.2
-						fade_out_time = 0.2
-						looping = false
-						delta = false
-						worldSpace = false
-						hidden = false
-						anim_markup_ordered = false
-						disable_compression = false
-						source_filename = "models/raw/pigmask/pigmask_anims/taunt2.smd"
-						start_frame = -1
-						end_frame = -1
-						framerate = -1.0
-						take = 0
-						reverse = false
-					},
-					{
-						_class = "AnimFile"
 						name = "a_walkN"
 						activity_name = ""
 						activity_weight = 1
@@ -540,33 +519,6 @@
 				children = 
 				[
 					{
-						_class = "PhysicsHullFile"
-						name = "pigmask_physics"
-						parent_bone = ""
-						surface_prop = "default"
-						collision_group = ""
-						collision_interact_as = ""
-						collision_interact_with = ""
-						collision_interact_exclude = ""
-						recenter_on_parent_bone = false
-						offset_origin = [ 0.0, 0.0, 0.0 ]
-						offset_angles = [ 0.0, 0.0, 0.0 ]
-						align_origin_x_type = "None"
-						align_origin_y_type = "None"
-						align_origin_z_type = "None"
-						filename = "models/raw/pigmask/pigmask_physics.smd"
-						import_scale = 1.0
-						faceMergeAngle = 10.0
-						maxHullVertices = 0
-						import_mode = "SingleHull"
-						optimization_algorithm = "QEM"
-						import_filter = 
-						{
-							exclude_by_default = false
-							exception_list = [  ]
-						}
-					},
-					{
 						_class = "PhysicsShapeCapsule"
 						parent_bone = "body1"
 						surface_prop = "default"
@@ -598,7 +550,7 @@
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						radius = 1.633253
+						radius = 19.830782
 						point0 = [ 6.533012, 0.0, 0.0 ]
 						point1 = [ 0.0, 0.0, 0.0 ]
 					},

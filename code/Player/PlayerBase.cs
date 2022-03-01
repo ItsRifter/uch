@@ -6,7 +6,6 @@ public partial class PlayerBase : Sandbox.Player
 {
 	private bool isTaunting = false;
 	private bool shouldRankUp = false;
-	private bool hasDied = false;
 
 	private TimeSince timeLastSprinted;
 
@@ -14,8 +13,6 @@ public partial class PlayerBase : Sandbox.Player
 	public bool CanMove { get; private set; } = true;
 
 	private Vector3 lastPos;
-
-	private DamageInfo lastDamage;
 
 	[Net]
 	public float StaminaAmount { get; private set; } = 100.0f;
@@ -121,7 +118,16 @@ public partial class PlayerBase : Sandbox.Player
 					CameraMode = new UCHCamera();
 					timeLastSprinted = 1.5f;
 					StaminaAmount = 0.0f;
+					SetAnimParameter( "b_scared", false );
 				}
+				return;
+			}
+
+			if(isWhipped)
+			{
+				if ( timeLastWhipped > 2.25f )
+					isWhipped = false;
+				
 				return;
 			}
 
@@ -152,13 +158,26 @@ public partial class PlayerBase : Sandbox.Player
 				staminaExhausted = false;
 
 			//Use key or Mouse 1 on Chimera's button
-			if ( Input.Pressed( InputButton.Use ) || Input.Pressed( InputButton.Attack1 ) && !IsScared )
+			if ( Input.Pressed( InputButton.Use ) || Input.Pressed( InputButton.Attack1 ) && !IsScared && !isWhipped)
 			{
 				var tr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 90 )
 				.Size( 2 )
 				.Ignore( this )
 				.UseHitboxes( true )
 				.Run();
+
+				if(tr.Entity is BreakableWall wall)
+				{
+					if ( IsClient )
+						return;
+
+					DamageInfo dmgInfo = new DamageInfo();
+					dmgInfo.Attacker = this;
+					dmgInfo.Damage = 1;
+
+					wall.TakeDamage( DamageInfo.Generic( 1 ) );
+					return;
+				}
 
 				if ( tr.Entity is PlayerBase player )
 					if ( player.CurrentTeam == TeamEnum.Chimera && player.ActiveChimera )
@@ -194,6 +213,9 @@ public partial class PlayerBase : Sandbox.Player
 				}
 			}
 
+			if ( Input.Pressed( InputButton.Reload ) )
+				Tailwhip();
+
 			if ( timeLastBite > 1.25f && timeLastRoar > 2.75f )
 				CanMove = true;
 			else return;
@@ -219,7 +241,15 @@ public partial class PlayerBase : Sandbox.Player
 					ChimeraStaminaAmount = 200.0f;
 			}
 
-			if ( Input.Pressed( InputButton.Attack2 ) && ChimeraStaminaAmount >= 199.0f && GroundEntity != null )
+			if( timeLastTailwhip > 3 && ChimeraTailStaminaAmount < 100.0f)
+			{
+				ChimeraTailStaminaAmount += 1.0f;
+
+				if ( ChimeraTailStaminaAmount > 100.0 )
+					ChimeraTailStaminaAmount = 100.0f;
+			}
+
+			if ( Input.Pressed( InputButton.Attack2 ) && ChimeraStaminaAmount >= 200.0f && GroundEntity != null )
 				Roar();
 		}
 	}
@@ -248,6 +278,7 @@ public partial class PlayerBase : Sandbox.Player
 			Sound.FromEntity( "pig_die", this );
 			Game.Current.PlaySoundToClient( To.Everyone, "pig_killed" );
 			IsScared = false;
+			isWhipped = false;
 		}
 	}
 }
