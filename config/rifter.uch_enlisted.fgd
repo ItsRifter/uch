@@ -24,6 +24,7 @@
 	rendercolor(color255) { alpha = true } : "Color (R G B A)" : "255 255 255 255" : "The color tint of this entity."
 	health_until_break(float) : "Health Until Break" : 0 : ""
 	can_pigmasks_destroy_this(boolean) : "Can Pigmasks Destroy" : 0 : ""
+	destroy_sound(sound) : "Destruction Sound" :  : ""
 	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."

@@ -33,7 +33,6 @@ partial class PlayerBase
 
 	public void SpawnAsFancyGhost()
 	{
-		CurrentTeam = TeamEnum.Spectator;
 		SetModel( "models/player/ghost/ghost_fancy.vmdl" );
 		ResetRank();
 
@@ -56,7 +55,7 @@ partial class PlayerBase
 		}
 	}
 
-	public void SpawnAsGhostAtLocation(Vector3 location)
+	public void SpawnAsGhostAtLocation()
 	{
 		CurrentTeam = TeamEnum.Spectator;
 		SetModel( "models/player/ghost/ghost.vmdl" );
@@ -70,6 +69,6 @@ partial class PlayerBase
 		EnableHideInFirstPerson = true;
 		EnableShadowInFirstPerson = true;
 
-		Position = location;
+		Position = deathPosition;
 	}
 }

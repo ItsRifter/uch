@@ -9,10 +9,12 @@ public partial class PlayerBase : Sandbox.Player
 
 	private TimeSince timeLastSprinted;
 
+	[Net] public bool DidDisableChimera { get; private set; }
+
 	[Net]
 	public bool CanMove { get; private set; } = true;
 
-	private Vector3 lastPos;
+	private Vector3 deathPosition;
 
 	[Net]
 	public float StaminaAmount { get; private set; } = 100.0f;
@@ -44,15 +46,11 @@ public partial class PlayerBase : Sandbox.Player
 
 	public override void Respawn()
 	{
-
-		EnableAllCollisions = true;
 		EnableDrawing = true;
 		EnableHideInFirstPerson = true;
 		EnableShadowInFirstPerson = true;
-		
-		if(CurrentTeam == TeamEnum.Spectator)
-			SpawnAsGhostAtLocation( lastPos );
 
+		DidDisableChimera = false;
 		CanMove = true;
 
 		StaminaAmount = StaminaMaxAmount;
@@ -64,6 +62,9 @@ public partial class PlayerBase : Sandbox.Player
 		}
 
 		base.Respawn();
+
+		if ( CurrentTeam == TeamEnum.Spectator )
+			SpawnAsGhostAtLocation();
 	}
 
 	public override void BuildInput( InputBuilder inputBuilder )
@@ -166,16 +167,13 @@ public partial class PlayerBase : Sandbox.Player
 				.UseHitboxes( true )
 				.Run();
 
-				if(tr.Entity is BreakableWall wall)
+				if ( tr.Entity is BreakableWall wall )
 				{
-					if ( IsClient )
-						return;
-
 					DamageInfo dmgInfo = new DamageInfo();
 					dmgInfo.Attacker = this;
 					dmgInfo.Damage = 1;
 
-					wall.TakeDamage( DamageInfo.Generic( 1 ) );
+					wall.TakeDamage( dmgInfo );
 					return;
 				}
 
@@ -186,6 +184,7 @@ public partial class PlayerBase : Sandbox.Player
 						{
 							player.BackButtonPressed();
 
+							DidDisableChimera = true;
 							shouldRankUp = true;
 
 							using ( Prediction.Off() )
@@ -268,8 +267,10 @@ public partial class PlayerBase : Sandbox.Player
 	{
 		base.OnKilled();
 
-		lastPos = Position;
+		deathPosition = Position;
 		Game.Current.CheckRoundStatus();
+
+		CameraMode = new SpectateRagdollCamera();
 
 		if ( CurrentTeam == TeamEnum.Pigmask )
 		{

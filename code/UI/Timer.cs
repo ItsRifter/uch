@@ -12,7 +12,7 @@ public partial class Timer : Panel
 	public Timer()
 	{
 		StyleSheet.Load( "UI/Timer.scss" );
-		TimeLbl = Add.Label("Waiting for players", "timer");
+		TimeLbl = Add.Label("Waiting for players");
 	}
 
 	public override void Tick()

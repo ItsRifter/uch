@@ -28,7 +28,7 @@ partial class PlayerBase
 
 		Corpse = ent;
 
-		ent.DeleteAsync( 6.0f );
+		ent.DeleteAsync( 10.0f );
 	}
 
 	[ClientRpc]

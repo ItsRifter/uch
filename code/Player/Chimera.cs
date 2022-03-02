@@ -29,16 +29,15 @@ partial class PlayerBase
 		timeLastBite = 0;
 
 		ActiveChimera = true;
-		EnableHitboxes = true;
 
-		EnableAllCollisions = true;
+		EnableHitboxes = true;
 		EnableDrawing = true;
 		EnableHideInFirstPerson = false;
 		EnableShadowInFirstPerson = false;
+		EnableAllCollisions = true;
 
 		using ( Prediction.Off() )
 			Game.Current.PlaySoundToClient( To.Single( this ), "chimera_spawn" );
-
 
 		var spawnpoints = Entity.All.OfType<ChimeraSpawn>();
 		var randomSpawnPoint = spawnpoints.OrderBy( x => Guid.NewGuid() ).FirstOrDefault();
@@ -60,6 +59,7 @@ partial class PlayerBase
 		ActiveChimera = false;
 		EnableDrawing = false;
 		EnableAllCollisions = false;
+
 		OnKilled();
 		BecomeChimeraRagdollClient( Velocity );
 	}
@@ -131,8 +131,6 @@ partial class PlayerBase
 	{
 		if ( !CanTailwhip() )
 			return;
-
-		Log.Info( "Tail whip" );
 
 		using ( Prediction.Off() )
 			Sound.FromEntity( "tailwhip", this );

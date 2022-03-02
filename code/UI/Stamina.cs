@@ -27,7 +27,6 @@ public partial class Stamina : Panel
 
 			if ( player.CurrentTeam == PlayerBase.TeamEnum.Pigmask )
 			{
-
 				switch ( player.CurrentPigRank )
 				{
 					case PlayerBase.PigRank.Ensign:

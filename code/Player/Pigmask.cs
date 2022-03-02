@@ -39,10 +39,10 @@ partial class PlayerBase
 		Controller = new PigmaskController();
 		CameraMode = new UCHCamera();
 
-		EnableAllCollisions = true;
 		EnableDrawing = true;
 		EnableHideInFirstPerson = true;
 		EnableShadowInFirstPerson = true;
+		EnableAllCollisions = true;
 
 		string spawnSound = "ensign_spawn";
 

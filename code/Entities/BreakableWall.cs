@@ -9,11 +9,16 @@ using Sandbox;
 [Hammer.RenderFields]
 partial class BreakableWall : AnimEntity
 {
+
+
 	[Property( "Health until break" )] 
 	public float HealthUntilBreak { get; set; }
 
 	[Property("Can Pigmasks destroy this")]
 	public bool CanPigmasksDestroy { get; set; }
+
+	[Property( "destroy_sound", Title = "Destruction Sound" ), FGDType( "sound" )]
+	public string DestroyedSound { get; set; }
 
 	protected Output OnBroken { get; set; }
 
@@ -26,13 +31,16 @@ partial class BreakableWall : AnimEntity
 	public override void TakeDamage( DamageInfo info )
 	{
 		if ( info.Attacker is PlayerBase player )
+		{
 			if ( player.CurrentTeam == PlayerBase.TeamEnum.Pigmask && !CanPigmasksDestroy )
 				return;
+		}
 
 		HealthUntilBreak -= info.Damage;
 
 		if ( HealthUntilBreak <= 0 )
 		{
+			Sound.FromEntity( DestroyedSound, this);
 			_ = OnBroken.Fire( this );
 			OnKilled();
 		}

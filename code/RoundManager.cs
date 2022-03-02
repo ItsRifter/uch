@@ -84,6 +84,7 @@ public partial class Game
 		{
 			if ( client.Pawn is PlayerBase player && player.CurrentTeam != PlayerBase.TeamEnum.Chimera )
 				player.SpawnAsPigmask();
+			
 		}
 	}
 
