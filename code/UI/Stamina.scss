@@ -1,11 +1,31 @@
-.stamina {
+stamina {
 	position: absolute;
 	left: 50px;
 	bottom: -110px;
-	opacity: 1;
-	width: 475px;
 	height: 256px;
 	background-repeat: no-repeat;
-	background-size: 504px 61px;
 	background-image: url(materials/raw/pighudbar.png);
+	transition: all 0.5s ease-out;
+
+	&.isChimera {
+		left: 115px;
+	}
+
+	.chimeraRoarBar {
+		position: absolute;
+		bottom: 60px;
+		height: 256px;
+		background-repeat: no-repeat;
+		background-image: url(materials/raw/pighudbar.png);
+		transition: all 1s ease-out;
+	}
+
+	.chimeraTailBar {
+		position: absolute;
+		bottom: 130px;
+		height: 256px;
+		background-repeat: no-repeat;
+		background-image: url(materials/raw/pighudbar.png);
+		transition: all 1s ease-out;
+	}
 }

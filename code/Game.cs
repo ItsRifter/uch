@@ -4,11 +4,13 @@ using Sandbox.UI.Construct;
 using System;
 using System.IO;
 using System.Threading.Tasks;
-
+using System.Collections.Generic;
 
 public partial class Game : Sandbox.Game
 {
 	public static new Game Current => Sandbox.Game.Current as Game;
+
+	private List<string> maps;
 
 	private Sound currentSound;
 
@@ -16,7 +18,9 @@ public partial class Game : Sandbox.Game
 	public Game()
 	{
 		if ( IsServer )
-		{
+		{ 
+			GrabSupportedMaps();
+			CurrentRoundStatus = RoundEnum.Idle;
 		}
 
 		if ( IsClient )
@@ -84,5 +88,27 @@ public partial class Game : Sandbox.Game
 		base.ClientDisconnect( cl, reason );
 
 		CheckRoundStatus();
+	}
+
+	public void GrabSupportedMaps()
+	{
+		maps = new List<string>();
+
+		maps.Add( "rifter.club_titiboo" );
+		maps.Add( "rifter.tazmily_village" );
+	}
+
+	public void CloseLobby()
+	{
+		string changeMap = "";
+		changeMap = maps[Rand.Int( 0, maps.Count - 1 )];
+		
+		if( changeMap == Global.MapName )
+		{
+			while ( changeMap == Global.MapName )
+				changeMap = maps[Rand.Int( 0, maps.Count - 1 )];
+		}
+
+		Global.ChangeLevel( changeMap );
 	}
 }

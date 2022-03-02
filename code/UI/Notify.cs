@@ -31,7 +31,6 @@ public partial class Notify : Panel
 		isNewRound = false;
 		isPostRound = true;
 		startRoundTime = 0;
-		Log.Info( "Start UI" );
 
 		if (Local.Pawn is PlayerBase player)
 		{
@@ -71,7 +70,7 @@ public partial class Notify : Panel
 	private void NotifyPlayersPostRound()
 	{
 		endRoundTime = 0f;
-		Log.Info( "Post UI" );
+
 		isNewRound = true;
 		isPostRound = false;
 

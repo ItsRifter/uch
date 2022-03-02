@@ -40,7 +40,7 @@ partial class BreakableWall : AnimEntity
 
 		if ( HealthUntilBreak <= 0 )
 		{
-			Sound.FromEntity( DestroyedSound, this);
+			Sound.FromWorld( DestroyedSound, Position);
 			_ = OnBroken.Fire( this );
 			OnKilled();
 		}

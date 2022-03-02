@@ -1,0 +1,46 @@
+RoundCounter {
+	position: absolute;
+	align-items: center;
+	justify-content: center;
+	color: black;
+	width: 100%;
+	left: 250px;
+
+	.text {
+		font-family: Poppins;
+		font-weight: 300;
+		left: 25px;
+		top: 5px;
+		font-size: 30px;
+	}
+
+	.hud {
+		height: 83px;
+		width: 225px;
+		background-repeat: repeat-y;
+
+		&.default {
+			background-image: url(ui/hud/piground.png);
+		}
+
+		&.ensign {
+			background-image: url(ui/hud/pigrounde.png);
+		}
+
+		&.captain {
+			background-image: url(ui/hud/pigroundcap.png);
+		}
+
+		&.major {
+			background-image: url(ui/hud/pigroundm.png);
+		}
+
+		&.colonel {
+			background-image: url(ui/hud/pigroundc.png);
+		}
+
+		&.chimera {
+			background-image: url(ui/hud/chimeraround.png);
+		}
+	}
+}

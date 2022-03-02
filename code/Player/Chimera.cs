@@ -17,6 +17,10 @@ partial class PlayerBase
 	[Net]
 	public float ChimeraTailStaminaAmount { get; private set; } = 100.0f;
 
+	[Net]
+	public float ChimeraRoarAmount { get; private set; } = 50.0f;
+
+
 	public void SpawnAsChimera()
 	{
 		CurrentTeam = TeamEnum.Chimera;
@@ -27,6 +31,8 @@ partial class PlayerBase
 		Controller = new ChimeraController();
 
 		timeLastBite = 0;
+		ChimeraStaminaAmount = 200.0f;
+		ChimeraRoarAmount = 50.0f;
 
 		ActiveChimera = true;
 
@@ -87,6 +93,13 @@ partial class PlayerBase
 		return true;
 	}
 
+	public bool CanRoar()
+	{
+		if ( ChimeraRoarAmount >= 50.0f )
+			return true;
+
+		return false;
+	}
 	public bool CanFly()
 	{
 		if ( timeLastFlew < 0.3f )
@@ -114,11 +127,14 @@ partial class PlayerBase
 
 	public void Roar()
 	{
+		if ( !CanRoar() )
+			return;
+
 		CanMove = false;
 
-		ChimeraStaminaAmount = 0.0f;
-		timeLastSprinted = 0;
 		timeLastRoar = 0;
+
+		ChimeraRoarAmount = 0.0f;
 
 		using ( Prediction.Off() )
 			Sound.FromEntity( "roar", this );
@@ -131,6 +147,9 @@ partial class PlayerBase
 	{
 		if ( !CanTailwhip() )
 			return;
+
+		ChimeraTailStaminaAmount -= 50.0f;
+		timeLastTailwhip = 0;
 
 		using ( Prediction.Off() )
 			Sound.FromEntity( "tailwhip", this );
@@ -160,9 +179,6 @@ partial class PlayerBase
 					player.timeLastWhipped = 0;
 				}
 		}
-
-		ChimeraTailStaminaAmount -= 50.0f;
-		timeLastTailwhip = 0;
 	}
 
 	public void Bite()

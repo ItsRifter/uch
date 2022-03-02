@@ -4,7 +4,11 @@ using System.Collections.Generic;
 
 public partial class Game
 {
-	[Net] public float RoundTimer { get; set; }
+	[Net] public float RoundTimer { get; private set; }
+	[Net] public int RoundCount { get; private set; } = 14;
+	[Net] public int MaxRounds { get; private set; } = 15;
+
+	private TimeSince timeToShutdown;
 
 	private PlayerBase lastChimera;
 	public enum RoundEnum
@@ -16,7 +20,7 @@ public partial class Game
 	}
 
 	[Net, Change( nameof( OnStateChange ) )]
-	public RoundEnum CurrentRoundStatus { get; private set; } = RoundEnum.Idle;
+	public RoundEnum CurrentRoundStatus { get; private set; }
 
 	public void OnStateChange( RoundEnum oldState, RoundEnum newState)
 	{
@@ -100,6 +104,8 @@ public partial class Game
 
 		Map.Reset(DefaultCleanupFilter);
 
+		RoundCount++;
+
 		using ( Prediction.Off() )
 			StopMusicClient( To.Everyone );
 
@@ -143,6 +149,15 @@ public partial class Game
 		{
 			EndRound(false, true);
 		}
+
+		if( RoundCount >= MaxRounds && timeToShutdown > 8.5f)
+		{
+			
+			if ( Host.IsServer )
+			{
+				CloseLobby();
+			}
+		}
 	}
 
 	public void CheckRoundStatus()
@@ -172,6 +187,17 @@ public partial class Game
 
 		using ( Prediction.Off() )
 			StopMusicClient( To.Everyone );
+
+		if ( RoundCount >= MaxRounds )
+		{
+			using(Prediction.Off())
+				PlaySoundToClient(To.Everyone, "gameover");
+
+			timeToShutdown = 0;
+			RoundTimer = 999;
+
+			return;
+		}
 
 		if ( chimeraWin && !isDraw )
 		{

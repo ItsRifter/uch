@@ -3,7 +3,7 @@
 [Library]
 public partial class ChimeraController : BasePlayerController
 {
-	[Net] public float SprintSpeed { get; set; } = 250.0f;
+	[Net] public float SprintSpeed { get; set; } = 275.0f;
 	[Net] public float WalkSpeed { get; set; } = 150.0f;
 	[Net] public float DefaultSpeed { get; set; } = 175.0f;
 	[Net] public float Acceleration { get; set; } = 10.0f;
@@ -241,7 +241,17 @@ public partial class ChimeraController : BasePlayerController
 
 	public virtual float GetWishSpeed()
 	{
-		if ( Input.Down( InputButton.Run ) ) return SprintSpeed;
+		var player = Pawn as PlayerBase;
+
+		if ( !player.IsValid )
+			return DefaultSpeed;
+
+		if ( Input.Down( InputButton.Run ) )
+		{
+			if ( player.ChimeraStaminaAmount > 0.0f )
+				return SprintSpeed;
+		}
+
 		if ( Input.Down( InputButton.Walk ) ) return WalkSpeed;
 
 		return DefaultSpeed;

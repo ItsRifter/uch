@@ -13,6 +13,7 @@ public partial class Hud : Sandbox.HudEntity<RootPanel>
 		RootPanel.AddChild<Stamina>();
 		RootPanel.AddChild<Statuses>();
 		RootPanel.AddChild<Timer>();
+		RootPanel.AddChild<RoundCounter>();
 		RootPanel.AddChild<Notify>();
 	}
 }

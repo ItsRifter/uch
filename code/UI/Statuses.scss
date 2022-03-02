@@ -29,5 +29,8 @@ statuses {
 	}
 
 	&.chimera {
+		background-image: url(ui/hud/chimerahud.png);
+		background-size: 512px 250px;
+		bottom: 45px;
 	}
 }

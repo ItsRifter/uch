@@ -212,6 +212,14 @@ public partial class PlayerBase : Sandbox.Player
 				}
 			}
 
+			//Shift Key - Sprinting
+			if ( Input.Down( InputButton.Run ) && ChimeraStaminaAmount > 0.0f)
+			{
+				timeLastSprinted = 0;
+				ChimeraStaminaAmount -= 1.0f;
+			}
+
+			//Reload - Tailwhip
 			if ( Input.Pressed( InputButton.Reload ) )
 				Tailwhip();
 
@@ -219,6 +227,10 @@ public partial class PlayerBase : Sandbox.Player
 				CanMove = true;
 			else return;
 
+			if(timeLastRoar > 6.5f && ChimeraRoarAmount < 50.0f)
+			{
+				ChimeraRoarAmount += 0.25f;
+			}
 
 			if ( Input.Pressed( InputButton.Attack1 ) && CanBite() )
 				Bite();
@@ -248,7 +260,7 @@ public partial class PlayerBase : Sandbox.Player
 					ChimeraTailStaminaAmount = 100.0f;
 			}
 
-			if ( Input.Pressed( InputButton.Attack2 ) && ChimeraStaminaAmount >= 200.0f && GroundEntity != null )
+			if ( Input.Pressed( InputButton.Attack2 ) && GroundEntity != null )
 				Roar();
 		}
 	}

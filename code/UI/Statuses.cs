@@ -19,10 +19,11 @@ public partial class Statuses : Panel
 
 		if (Local.Pawn != null && Local.Pawn is PlayerBase player)
 		{
-
 			SetClass( "default", player.CurrentTeam == PlayerBase.TeamEnum.Spectator );
 
-			if ( player.CurrentTeam == PlayerBase.TeamEnum.Spectator || player.CurrentTeam == PlayerBase.TeamEnum.Chimera )
+			SetClass( "chimera", player.CurrentTeam == PlayerBase.TeamEnum.Chimera );
+
+			if ( player.CurrentTeam == PlayerBase.TeamEnum.Spectator )
 			{
 				SetClass( "ensign", false );
 				SetClass( "captain", false );
@@ -32,6 +33,8 @@ public partial class Statuses : Panel
 
 			if ( player.CurrentTeam == PlayerBase.TeamEnum.Pigmask )
 			{
+				SetClass( "chimera", false );
+
 				SetClass( "ensign", player.CurrentPigRank == PlayerBase.PigRank.Ensign );
 				SetClass( "captain", player.CurrentPigRank == PlayerBase.PigRank.Captain );
 				SetClass( "major", player.CurrentPigRank == PlayerBase.PigRank.Major );
