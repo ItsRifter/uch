@@ -12,7 +12,10 @@ partial class PlayerBase
 
 	public bool staminaExhausted = false;
 	public bool IsScared = false;
+
 	private bool isWhipped = false;
+
+	[Net] public bool hasSaturn { get; private set; } = false;
 
 	public enum PigRank
 	{
@@ -92,7 +95,6 @@ partial class PlayerBase
 	public void Taunt()
 	{
 		CameraMode = new UCHTauntCamera();
-
 		
 		isTaunting = true;
 		CanMove = false;

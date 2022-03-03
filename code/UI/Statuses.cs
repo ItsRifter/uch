@@ -10,7 +10,6 @@ public partial class Statuses : Panel
 	public Statuses()
 	{
 		StyleSheet.Load( "UI/Statuses.scss" );
-
 	}
 
 	public override void Tick()

@@ -1,20 +1,24 @@
 ﻿using Sandbox;
+using Sandbox.UI;
 using System;
 using System.Linq;
-
 public partial class PlayerBase : Sandbox.Player
 {
 	private bool isTaunting = false;
-	private bool shouldRankUp = false;
+	public bool shouldRankUp = false;
 
 	private TimeSince timeLastSprinted;
 
-	[Net] public bool DidDisableChimera { get; private set; }
+	[Net] public bool DidDisableChimera { get; set; }
 
 	[Net]
 	public bool CanMove { get; private set; } = true;
 
 	private Vector3 deathPosition;
+	public DamageInfo dmgInfo;
+
+	private MrSaturn holdingSaturn;
+	private MrSaturnThrowable holdingThrownSaturn;
 
 	[Net]
 	public float StaminaAmount { get; private set; } = 100.0f;
@@ -53,7 +57,9 @@ public partial class PlayerBase : Sandbox.Player
 		DidDisableChimera = false;
 		CanMove = true;
 
-		StaminaAmount = StaminaMaxAmount;
+		holdingSaturn?.Delete();
+		holdingThrownSaturn?.Delete();
+		hasSaturn = false;
 
 		if (shouldRankUp)
 		{
@@ -121,6 +127,18 @@ public partial class PlayerBase : Sandbox.Player
 					StaminaAmount = 0.0f;
 					SetAnimParameter( "b_scared", false );
 				}
+
+				if(hasSaturn)
+				{
+					var droppedSaturn = new MrSaturn();
+					droppedSaturn.Position = Position + Vector3.Up * 10;
+
+					holdingSaturn?.Delete();
+					holdingThrownSaturn?.Delete();
+
+					hasSaturn = false;
+
+				}
 				return;
 			}
 
@@ -167,6 +185,25 @@ public partial class PlayerBase : Sandbox.Player
 				.UseHitboxes( true )
 				.Run();
 
+				if ( hasSaturn && IsServer )
+				{
+					hasSaturn = false;
+
+					holdingSaturn?.Delete();
+					holdingThrownSaturn?.Delete();
+
+					using ( Prediction.Off() )
+					{
+						Sound.FromEntity( "saturn_throw", this );
+
+						var saturnThrowable = new MrSaturnThrowable();
+						saturnThrowable.Position = tr.EndPosition;
+						saturnThrowable.Rotation = EyeRotation;
+						saturnThrowable.Owner = this;
+					}
+					return;
+				}
+
 				if ( tr.Entity is BreakableWall wall )
 				{
 					DamageInfo dmgInfo = new DamageInfo();
@@ -177,12 +214,40 @@ public partial class PlayerBase : Sandbox.Player
 					return;
 				}
 
+				if ( tr.Entity is MrSaturn saturn && IsServer )
+				{
+					using ( Prediction.Off() )
+						Sound.FromEntity( "saturn_pickup", this );
+
+					hasSaturn = true;
+
+					saturn.Transform = (Transform)GetAttachment( "saturn_hold" );
+					saturn.SetParent(this, GetBoneIndex( "bip01_r_hand" ) );
+					saturn.EnableHideInFirstPerson = true;
+					holdingSaturn = saturn;
+
+					return;
+				}
+				else if ( tr.Entity is MrSaturnThrowable saturnThrown && IsServer )
+				{
+					using(Prediction.Off())
+						Sound.FromEntity( "saturn_pickup", this );
+
+					hasSaturn = true;
+
+					saturnThrown.Transform = (Transform)GetAttachment( "saturn_hold" );
+					saturnThrown.SetParent( this, GetBoneIndex( "bip01_r_hand" ) );
+					saturnThrown.EnableHideInFirstPerson = true;
+					holdingThrownSaturn = saturnThrown;
+					return;
+				}
+
 				if ( tr.Entity is PlayerBase player )
 					if ( player.CurrentTeam == TeamEnum.Chimera && player.ActiveChimera )
 						//Button bone
 						if ( tr.HitboxIndex == 0 )
 						{
-							player.BackButtonPressed();
+							player.BackButtonPressed(this);
 
 							DidDisableChimera = true;
 							shouldRankUp = true;
@@ -275,16 +340,24 @@ public partial class PlayerBase : Sandbox.Player
 		base.TakeDamage( info );
 	}
 
+	[ClientRpc]
+	public virtual void OnKilledMessage( long leftid, string left, long rightid, string right, string method )
+	{
+		UCHKillFeed.Current?.AddEntry( leftid, left, rightid, right, method );
+	}
+
 	public override void OnKilled()
 	{
 		base.OnKilled();
+
+		Host.AssertServer();
 
 		deathPosition = Position;
 		Game.Current.CheckRoundStatus();
 
 		CameraMode = new SpectateRagdollCamera();
 
-		if ( CurrentTeam == TeamEnum.Pigmask )
+		if ( CurrentTeam == TeamEnum.Pigmask && dmgInfo.Attacker.IsValid )
 		{
 			EnableDrawing = false;
 			CurrentTeam = TeamEnum.Spectator;
@@ -292,6 +365,19 @@ public partial class PlayerBase : Sandbox.Player
 			Game.Current.PlaySoundToClient( To.Everyone, "pig_killed" );
 			IsScared = false;
 			isWhipped = false;
+
+			OnKilledMessage( dmgInfo.Attacker.Client.Id, dmgInfo.Attacker.Client.Name, Client.PlayerId, Client.Name, "chimera" );
+		}
+		else if (CurrentTeam == TeamEnum.Pigmask)
+		{
+			EnableDrawing = false;
+			CurrentTeam = TeamEnum.Spectator;
+			Sound.FromEntity( "pig_die", this );
+			Game.Current.PlaySoundToClient( To.Everyone, "pig_killed" );
+			IsScared = false;
+			isWhipped = false;
+
+			OnKilledMessage( 0, "", Client.PlayerId, Client.Name, "suicide" );
 		}
 	}
 }

@@ -20,27 +20,27 @@ RoundCounter {
 		background-repeat: repeat-y;
 
 		&.default {
-			background-image: url(ui/hud/piground.png);
+			background-image: url(ui/piground.png);
 		}
 
 		&.ensign {
-			background-image: url(ui/hud/pigrounde.png);
+			background-image: url(ui/pigrounde.png);
 		}
 
 		&.captain {
-			background-image: url(ui/hud/pigroundcap.png);
+			background-image: url(ui/pigroundcap.png);
 		}
 
 		&.major {
-			background-image: url(ui/hud/pigroundm.png);
+			background-image: url(ui/pigroundm.png);
 		}
 
 		&.colonel {
-			background-image: url(ui/hud/pigroundc.png);
+			background-image: url(ui/pigroundc.png);
 		}
 
 		&.chimera {
-			background-image: url(ui/hud/chimeraround.png);
+			background-image: url(ui/chimeraround.png);
 		}
 	}
 }

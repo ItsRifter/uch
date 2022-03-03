@@ -7,11 +7,15 @@ public partial class Notify : Panel
 	private Label pigRankLbl;
 	private Label objectiveLbl;
 	private Label endRoundLbl;
+	private Label saturnAppear;
 
 	private TimeSince startRoundTime;
 	private TimeSince endRoundTime;
+	private TimeSince timeSaturnAppeared;
+
 	private bool isNewRound;
 	private bool isPostRound;
+	private bool didSaturnAppear;
 
 	public Notify()
 	{
@@ -20,8 +24,12 @@ public partial class Notify : Panel
 		pigRankLbl = Add.Label( "" );
 		objectiveLbl = Add.Label( "", "objective" );
 		endRoundLbl = Add.Label( "", "endgame" );
+		saturnAppear = Add.Label("", "saturn");
+
 		isNewRound = true;
 		isPostRound = false;
+		didSaturnAppear = false;
+
 		startRoundTime = 0.0f;
 		endRoundTime = 10f;
 	}
@@ -36,7 +44,13 @@ public partial class Notify : Panel
 		{
 			if(player.CurrentTeam == PlayerBase.TeamEnum.Pigmask)
 			{
-				switch(player.CurrentPigRank)
+				foreach ( var client in Client.All )
+				{
+					if ( client.Pawn is PlayerBase chimera && chimera.CurrentTeam == PlayerBase.TeamEnum.Chimera )
+						objectiveLbl.SetText( client.Name + " Is the Chimera, turn them off!" );
+				}
+
+				switch (player.CurrentPigRank)
 				{
 					case PlayerBase.PigRank.Ensign:
 						pigRankLbl.SetText( "You are an Ensign" );
@@ -55,11 +69,6 @@ public partial class Notify : Panel
 						break;
 				}
 
-				foreach ( var client in Client.All)
-				{
-					if( client.Pawn is PlayerBase chimera && chimera.CurrentTeam == PlayerBase.TeamEnum.Chimera)
-						objectiveLbl.SetText( client.Name + " Is the Chimera, turn them off!" );
-				}
 			} else if (player.CurrentTeam == PlayerBase.TeamEnum.Chimera)
 			{
 				pigRankLbl.SetText( "" );
@@ -74,6 +83,8 @@ public partial class Notify : Panel
 		isNewRound = true;
 		isPostRound = false;
 
+		saturnAppear.SetText( "" );
+
 		var curPlayer = Local.Pawn as PlayerBase;
 
 		if ( curPlayer == null )
@@ -86,13 +97,14 @@ public partial class Notify : Panel
 		{
 			if(client.Pawn is PlayerBase player)
 			{
-				if ( !player.DidDisableChimera && player.CurrentTeam == PlayerBase.TeamEnum.Pigmask )
+				if ( player.DidDisableChimera )
+					chimeraAlive = false;
+
+				if ( player.CurrentTeam == PlayerBase.TeamEnum.Pigmask && chimeraAlive == true )
 				{
 					roundDraw = true;
 				}
 
-				if ( player.DidDisableChimera )
-					chimeraAlive = false;
 			}
 		}
 
@@ -102,10 +114,19 @@ public partial class Notify : Panel
 		} else if ( !chimeraAlive && !roundDraw )
 		{
 			endRoundLbl.SetText( "The pigmasks has conquered the Chimera!" );
-		} else if ( roundDraw )
+		} else if ( roundDraw && chimeraAlive )
 		{
 			endRoundLbl.SetText( "Its a draw, nobody wins!" );
 		}
+	}
+
+	private void NotifyPlayersSaturn()
+	{
+		didSaturnAppear = true;
+		pigRankLbl.SetText( "" );
+		objectiveLbl.SetText( "" );
+		saturnAppear.SetText( "Mr Saturn has appeared!" );
+		timeSaturnAppeared = 0;
 	}
 
 	public override void Tick()
@@ -116,15 +137,23 @@ public partial class Notify : Panel
 		{
 			NotifyPlayers();
 			endRoundLbl.SetText( "" );
+			saturnAppear.SetText( "" );
 		}
 		else if ( Game.Current.CurrentRoundStatus == Game.RoundEnum.Post && isPostRound )
 		{
 			NotifyPlayersPostRound();
 			pigRankLbl.SetText( "" );
 			objectiveLbl.SetText("");
+			saturnAppear.SetText( "" );
+			didSaturnAppear = false;
 		}
 
-		SetClass( "active", startRoundTime < 4.0f || endRoundTime < 4.0f );
-		SetClass( "show", startRoundTime < 6.0f || endRoundTime < 6.0f );
+		if ( Game.Current.SaturnActive && !didSaturnAppear && Game.Current.CurrentRoundStatus == Game.RoundEnum.Active )
+		{
+			NotifyPlayersSaturn();
+		}
+
+		SetClass( "active", startRoundTime < 4.0f || endRoundTime < 4.0f || timeSaturnAppeared < 4.0f );
+		SetClass( "show", startRoundTime < 6.0f || endRoundTime < 6.0f || timeSaturnAppeared < 6.0f );
 	}
 }

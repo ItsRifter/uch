@@ -9,27 +9,27 @@ statuses {
 	background-size: 512px 135px;
 
 	&.default {
-		background-image: url(ui/hud/pighud.png);
+		background-image: url(ui/pighud.png);
 	}
 
 	&.ensign {
-		background-image: url(ui/hud/pighude.png);
+		background-image: url(ui/pighude.png);
 	}
 
 	&.captain {
-		background-image: url(ui/hud/pighudcap.png);
+		background-image: url(ui/pighudcap.png);
 	}
 
 	&.major {
-		background-image: url(ui/hud/pighudm.png);
+		background-image: url(ui/pighudm.png);
 	}
 
 	&.colonel {
-		background-image: url(ui/hud/pighudcolonel.png);
+		background-image: url(ui/pighudcolonel.png);
 	}
 
 	&.chimera {
-		background-image: url(ui/hud/chimerahud.png);
+		background-image: url(ui/chimerahud.png);
 		background-size: 512px 250px;
 		bottom: 45px;
 	}

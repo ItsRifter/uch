@@ -4,9 +4,10 @@ using System.Collections.Generic;
 
 public partial class Game
 {
-	[Net] public float RoundTimer { get; private set; }
-	[Net] public int RoundCount { get; private set; } = 14;
+	[Net] public float RoundTimer { get; set; }
+	[Net] public int RoundCount { get; private set; } = 0;
 	[Net] public int MaxRounds { get; private set; } = 15;
+	[Net] public bool SaturnActive { get; private set; } = false;
 
 	private TimeSince timeToShutdown;
 
@@ -40,9 +41,10 @@ public partial class Game
 	[ServerCmd( "uch_restartround" )]
 	public static void RestartRoundCMD()
 	{
-		var caller = ConsoleSystem.Caller.Pawn;
+		var caller = ConsoleSystem.Caller;
 
-		if ( !caller.IsServer ) return;
+		if ( !caller.IsListenServerHost )
+			return;
 
 		Log.Info( "Round restarted by command" );
 		Event.Run( "restartround", false, true );
@@ -51,9 +53,10 @@ public partial class Game
 	[ServerCmd("uch_forcestart")]
 	public static void StartGameCMD()
 	{
-		var caller = ConsoleSystem.Caller.Pawn;
+		var caller = ConsoleSystem.Caller;
 
-		if ( !caller.IsServer ) return;
+		if ( !caller.IsListenServerHost )
+			return;
 
 		Event.Run( "startgame" );
 	}
@@ -104,6 +107,8 @@ public partial class Game
 
 		Map.Reset(DefaultCleanupFilter);
 
+		SaturnActive = false;
+
 		RoundCount++;
 
 		using ( Prediction.Off() )
@@ -129,6 +134,21 @@ public partial class Game
 		RoundTimer = 180.0f + Time.Now;
 	}
 
+	[ServerCmd( "uch_spawnsaturn" )]
+	public static void SpawnSaturnCMD()
+	{
+		Event.Run( "spawnsaturn" );
+	}
+
+	[Event("spawnsaturn")]
+	public void SpawnMrSaturn()
+	{
+		SaturnActive = true;
+
+		Sound.FromScreen( "saturn_appear" );
+		var saturn = new MrSaturn();
+	}
+
 	[Event.Tick.Server]
 	public void UpdateTimer()
 	{
@@ -137,7 +157,12 @@ public partial class Game
 		if ( (RoundTimer - Time.Now) <= 0 && CurrentRoundStatus == RoundEnum.Starting )
 			BeginActiveRound();
 
-		if ( (RoundTimer - Time.Now) <= 0 && CurrentRoundStatus == RoundEnum.Post )
+		if((RoundTimer - Time.Now) <= 120.0f && !SaturnActive && CurrentRoundStatus == RoundEnum.Active)
+		{
+			SpawnMrSaturn();
+		}
+
+		if ( (RoundTimer - Time.Now) <= 0 && CurrentRoundStatus == RoundEnum.Post && RoundCount < MaxRounds )
 		{
 			if ( Client.All.Count < 2 )
 				StopGame();
@@ -145,18 +170,15 @@ public partial class Game
 				BeginActiveRound();
 		}
 
-		if( (RoundTimer - Time.Now) <= 0 && CurrentRoundStatus == RoundEnum.Active)
+		if( (RoundTimer - Time.Now) <= 0 && CurrentRoundStatus == RoundEnum.Active && RoundCount < MaxRounds )
 		{
 			EndRound(false, true);
 		}
 
-		if( RoundCount >= MaxRounds && timeToShutdown > 8.5f)
+		if( RoundCount >= MaxRounds && timeToShutdown > 13.5f && CurrentRoundStatus == RoundEnum.Post)
 		{
-			
 			if ( Host.IsServer )
-			{
-				CloseLobby();
-			}
+				ChangeMap();
 		}
 	}
 

@@ -1,15 +1,15 @@
-﻿using Sandbox.UI;
+﻿using Sandbox;
+using Sandbox.UI;
 
 public partial class Hud : Sandbox.HudEntity<RootPanel>
 {
 	public Hud()
 	{
-		//TEMPORARY
 		RootPanel.AddChild<ChatBox>();
-		RootPanel.AddChild<Scoreboard<ScoreboardEntry>>();
-		RootPanel.AddChild<KillFeed>();
 		RootPanel.AddChild<NameTags>();
+		RootPanel.AddChild<Scoreboard<ScoreboardEntry>>();
 
+		RootPanel.AddChild<UCHKillFeed>();
 		RootPanel.AddChild<Stamina>();
 		RootPanel.AddChild<Statuses>();
 		RootPanel.AddChild<Timer>();

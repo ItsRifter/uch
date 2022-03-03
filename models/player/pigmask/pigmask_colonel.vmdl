@@ -71,6 +71,27 @@
 				[
 					{
 						_class = "AnimFile"
+						name = "b_scared"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/raw/pigmask/pigmask_anims/b_scared.smd"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
 						name = "idle"
 						activity_name = ""
 						activity_weight = 1
@@ -150,27 +171,6 @@
 						start_frame = -1
 						end_frame = -1
 						framerate = 60.0
-						take = 0
-						reverse = false
-					},
-					{
-						_class = "AnimFile"
-						name = "taunt2"
-						activity_name = ""
-						activity_weight = 1
-						weight_list_name = ""
-						fade_in_time = 0.2
-						fade_out_time = 0.2
-						looping = false
-						delta = false
-						worldSpace = false
-						hidden = false
-						anim_markup_ordered = false
-						disable_compression = false
-						source_filename = "models/raw/pigmask/pigmask_anims/taunt2.smd"
-						start_frame = -1
-						end_frame = -1
-						framerate = 45.0
 						take = 0
 						reverse = false
 					},
@@ -533,7 +533,7 @@
 					},
 					{
 						_class = "AnimFile"
-						name = "b_scared"
+						name = "b_scared1"
 						activity_name = ""
 						activity_weight = 1
 						weight_list_name = ""
@@ -549,6 +549,69 @@
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "jump"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/raw/pigmask/pigmask_anims/jump.smd"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "land"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/raw/pigmask/pigmask_anims/jump.smd"
+						start_frame = 5
+						end_frame = 15
+						framerate = -1.0
+						take = 0
+						reverse = true
+					},
+					{
+						_class = "AnimFile"
+						name = "taunt2"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/raw/pigmask/pigmask_anims/taunt2.smd"
+						start_frame = -1
+						end_frame = -1
+						framerate = 60.0
 						take = 0
 						reverse = false
 					},
@@ -773,6 +836,15 @@
 						weight = 1.0
 						ignore_rotation = true
 					},
+					{
+						_class = "Attachment"
+						name = "saturn_hold"
+						parent_bone = "bip01_r_hand"
+						relative_origin = [ 5.765371, 0.211155, 0.00149 ]
+						relative_angles = [ 0.0, 0.0, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
 				]
 			},
 			{
@@ -796,60 +868,42 @@
 						}
 					},
 					{
-						_class = "Folder"
-						name = "LookAtChains"
-						children = 
-						[
-							{
-								_class = "LookAtChain"
-								name = "LookChain"
-								lookat_chain = 
+						_class = "LookAtChain"
+						name = "AimChain"
+						lookat_chain = 
+						{
+							name = ""
+							bones = 
+							[
 								{
-									name = ""
-									bones = 
-									[
-										{
-											name = "head"
-											weight = 0.6
-										},
-									]
-								}
-							},
-							{
-								_class = "LookAtChain"
-								name = "LookChain_LessNeck"
-								lookat_chain = 
+									name = "body2"
+									weight = 0.45
+								},
 								{
-									name = ""
-									bones = 
-									[
-										{
-											name = "head"
-											weight = 0.6
-										},
-									]
-								}
-							},
-							{
-								_class = "LookAtChain"
-								name = "AimChain"
-								lookat_chain = 
+									name = "body1"
+									weight = 0.2
+								},
+							]
+						}
+					},
+					{
+						_class = "LookAtChain"
+						name = "LookChain"
+						lookat_chain = 
+						{
+							name = ""
+							bones = 
+							[
 								{
-									name = ""
-									bones = 
-									[
-										{
-											name = "body2"
-											weight = 0.45
-										},
-										{
-											name = "body1"
-											weight = 0.2
-										},
-									]
-								}
-							},
-						]
+									name = "head"
+									weight = 0.6
+								},
+								{
+									name = "body2"
+									weight = 0.35
+								},
+							]
+						}
 					},
 				]
 			},

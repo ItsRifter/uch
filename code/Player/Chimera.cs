@@ -59,15 +59,19 @@ partial class PlayerBase
 	}
 
 	//When the button on the chimera's back is pressed, turn off the chimera
-	public void BackButtonPressed()
+	public void BackButtonPressed( PlayerBase player)
 	{
 		Sound.FromEntity( "button_press", this);
 		ActiveChimera = false;
 		EnableDrawing = false;
 		EnableAllCollisions = false;
 
-		OnKilled();
 		BecomeChimeraRagdollClient( Velocity );
+
+		OnKilledMessage( player.Client.PlayerId, player.Client.Name, Client.PlayerId, Client.Name, "pigmask" );
+		OnKilled();
+
+		Game.Current.CheckRoundStatus();
 	}
 
 	public bool CanBite()
@@ -208,6 +212,21 @@ partial class PlayerBase
 			return;
 		}
 
+		if ( tr.Entity is MrSaturn saturn && IsServer )
+		{
+			using ( Prediction.Off() )
+				Sound.FromEntity( "saturn_hit", this );
+
+			saturn.Delete();
+		}
+		else if ( tr.Entity is MrSaturnThrowable saturnThrown && IsServer )
+		{
+			using ( Prediction.Off() )
+				Sound.FromEntity( "saturn_hit", this );
+
+			saturnThrown.Delete();
+		}
+
 		if ( !tr.Hit || tr.StartedSolid )
 			return;
 
@@ -223,9 +242,13 @@ partial class PlayerBase
 					Game.Current.RoundTimer += 30;
 
 					using(Prediction.Off() )
-						Sound.FromEntity( "squeal", player ); 
+						Sound.FromEntity( "squeal", player );
+
+					DamageInfo dmgInfo = new DamageInfo();
+					dmgInfo.Attacker = this;
 
 					player.BecomeRagdollOnClient( Velocity, EyePosition + Rotation.Forward );
+					player.dmgInfo = dmgInfo;
 					player.OnKilled();
 					Game.Current.CheckRoundStatus();
 				}

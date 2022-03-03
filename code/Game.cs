@@ -98,7 +98,7 @@ public partial class Game : Sandbox.Game
 		maps.Add( "rifter.tazmily_village" );
 	}
 
-	public void CloseLobby()
+	public void ChangeMap()
 	{
 		string changeMap = "";
 		changeMap = maps[Rand.Int( 0, maps.Count - 1 )];

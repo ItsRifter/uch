@@ -47,6 +47,20 @@ metadata
 ]
 
 //
+// MrSaturnSpawn
+//
+@PointClass base(BaseProperties_rifter_uch_enlisted) editormodel( "models/npc/mr_saturn.vmdl" ) 
+metadata
+{
+	entity_tool_name = "Mr Saturn Spawnpoint"
+	entity_tool_group = "UCH"
+	entity_tool_tip = "Defines a point where mr saturn could potentially spawn at"
+}
+= info_mrsaturn_start : ""
+[
+]
+
+//
 // PigmaskSpawn
 //
 @PointClass base(BaseProperties_rifter_uch_enlisted) editormodel( "models/player/pigmask/pigmask.vmdl" ) 

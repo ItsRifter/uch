@@ -34,27 +34,27 @@ timer {
 		background-repeat: repeat-y;
 
 		&.default {
-			background-image: url(ui/hud/pigtime.png);
+			background-image: url(ui/pigtime.png);
 		}
 
 		&.ensign {
-			background-image: url(ui/hud/pigtimee.png);
+			background-image: url(ui/pigtimee.png);
 		}
 
 		&.captain {
-			background-image: url(ui/hud/pigtimecap.png);
+			background-image: url(ui/pigtimecap.png);
 		}
 
 		&.major {
-			background-image: url(ui/hud/pigtimem.png);
+			background-image: url(ui/pigtimem.png);
 		}
 
 		&.colonel {
-			background-image: url(ui/hud/pigtimec.png);
+			background-image: url(ui/pigtimec.png);
 		}
 
 		&.chimera {
-			background-image: url(ui/hud/chimeratime.png);
+			background-image: url(ui/chimeratime.png);
 		}
 	}
 }

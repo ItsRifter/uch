@@ -19,23 +19,32 @@ public class UCHAnimator : PawnAnimator
 		//
 		bool noclip = HasTag( "noclip" );
 
-		SetAnimParameter( "b_grounded", GroundEntity != null || noclip );
-		if (player.CurrentTeam == PlayerBase.TeamEnum.Chimera)
-			SetAnimParameter( "b_jump", GroundEntity == null && Input.Pressed( InputButton.Jump ) && player.CanFly() );
+		SetAnimParameter( "b_grounded", GroundEntity != null );
+
+		SetAnimParameter( "b_jump", GroundEntity == null && Input.Pressed( InputButton.Jump ) && player.CanFly() );
 
 		Vector3 aimPos = Pawn.EyePosition + Input.Rotation.Forward * 200;
 		Vector3 lookPos = aimPos;
 
-		//
-		// Look in the direction what the player's input is facing
-		//
-		//SetLookAt( "aim_head", -lookPos );
+		if ( player.CurrentTeam == PlayerBase.TeamEnum.Pigmask)
+		{
+			if ( HasTag( "ducked" ) ) duck = duck.LerpTo( 1.0f, Time.Delta * 10.0f );
+			else duck = duck.LerpTo( 0.0f, Time.Delta * 5.0f );
+
+			SetAnimParameter( "duck", duck );
+
+			//
+			// Look in the direction what the player's input is facing
+			//
+			SetLookAt( "aim_head", -lookPos );
+
+		}
 		//SetLookAt( "aim_body", -aimPos );
 	}
 
 	public virtual void DoRotation( Rotation idealRotation )
 	{
-		var player = Pawn as Player;
+		var player = Pawn as PlayerBase;
 
 		//
 		// Our ideal player model rotation is the way we're facing

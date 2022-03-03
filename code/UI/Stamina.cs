@@ -50,8 +50,7 @@ public partial class Stamina : Panel
 						break;
 				}
 
-				Style.Dirty();
-				Style.Width = player.StaminaAmount * rankMultiply;
+				StandardStamina.Style.Width = player.StaminaAmount * rankMultiply;
 			}
 			else if ( player.CurrentTeam == PlayerBase.TeamEnum.Chimera )
 			{
