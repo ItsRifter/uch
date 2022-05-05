@@ -38,7 +38,7 @@ public partial class Game
 		RoundTimer = 20.0f + Time.Now;
 	}
 
-	[ServerCmd( "uch_restartround" )]
+	[AdminCmd( "uch_restartround" )]
 	public static void RestartRoundCMD()
 	{
 		var caller = ConsoleSystem.Caller;
@@ -50,7 +50,7 @@ public partial class Game
 		Event.Run( "restartround", false, true );
 	}
 
-	[ServerCmd("uch_forcestart")]
+	[AdminCmd( "uch_forcestart")]
 	public static void StartGameCMD()
 	{
 		var caller = ConsoleSystem.Caller;
@@ -134,7 +134,7 @@ public partial class Game
 		RoundTimer = 180.0f + Time.Now;
 	}
 
-	[ServerCmd( "uch_spawnsaturn" )]
+	[AdminCmd( "uch_spawnsaturn" )]
 	public static void SpawnSaturnCMD()
 	{
 		Event.Run( "spawnsaturn" );

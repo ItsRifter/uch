@@ -11,5 +11,17 @@
   ],
   "HasCode": true,
   "CodePath": "/code/",
-  "RootNamespace": "Sandbox"
+  "RootNamespace": "Sandbox",
+  "Metadata": {
+    "MapList": [
+      "rifter.club_titiboo"
+    ],
+    "PerMapRanking": false,
+    "LeaderboardType": 0,
+    "RankType": 0,
+    "MapSelect": 3,
+    "GameNetworkType": 0,
+    "MaxPlayers": 0,
+    "MinPlayers": 0
+  }
 }

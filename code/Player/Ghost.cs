@@ -71,4 +71,21 @@ partial class PlayerBase
 
 		Position = deathPosition;
 	}
+
+	public void SpawnAsFancyGhostAtLocation()
+	{
+		CurrentTeam = TeamEnum.Spectator;
+		SetModel( "models/player/ghost/ghost_fancy.vmdl" );
+		ResetRank();
+
+		Controller = new GhostController();
+		CameraMode = new UCHCamera();
+
+		EnableAllCollisions = false;
+		EnableDrawing = true;
+		EnableHideInFirstPerson = true;
+		EnableShadowInFirstPerson = true;
+
+		Position = deathPosition;
+	}
 }

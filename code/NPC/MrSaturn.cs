@@ -4,8 +4,6 @@ using System.Linq;
 
 public partial class MrSaturn : AnimEntity
 {
-	float Speed;
-
 	public override void Spawn()
 	{
 		base.Spawn();
@@ -17,8 +15,6 @@ public partial class MrSaturn : AnimEntity
 
 		EnableHitboxes = true;
 		PhysicsEnabled = true;
-
-		Speed = Rand.Float( 100, 300 );
 
 		var spawnpoints = Entity.All.OfType<MrSaturnSpawn>();
 		var randomSpawnPoint = spawnpoints.OrderBy( x => Guid.NewGuid() ).FirstOrDefault();

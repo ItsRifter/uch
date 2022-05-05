@@ -168,7 +168,7 @@ partial class PlayerBase
 		if ( !tr.Hit || tr.StartedSolid )
 			return;
 
-		var totalEnts = FindInSphere( tr.EndPosition, 122 );
+		var totalEnts = FindInSphere( tr.EndPosition, 162 );
 		foreach ( var ent in totalEnts )
 		{
 			if ( ent is not PlayerBase || ent == this )
@@ -197,7 +197,7 @@ partial class PlayerBase
 		timeLastBite = 0;
 		CanMove = false;
 
-		var tr = Trace.Sphere( 64, EyePosition, EyePosition + EyeRotation.Forward * 105 )
+		var tr = Trace.Sphere( 82, EyePosition, EyePosition + EyeRotation.Forward * 105 )
 			.Size( 2 )
 			.Ignore( this )
 			.Run();
@@ -230,7 +230,7 @@ partial class PlayerBase
 		if ( !tr.Hit || tr.StartedSolid )
 			return;
 
-		var totalEnts = FindInSphere( tr.EndPosition, 64 );
+		var totalEnts = FindInSphere( tr.EndPosition, 82 );
 		foreach(var ent in totalEnts) 
 		{
 			if ( ent is not PlayerBase || ent == this )

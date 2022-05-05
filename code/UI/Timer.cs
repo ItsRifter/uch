@@ -5,8 +5,6 @@ using Sandbox.UI.Construct;
 
 public partial class Timer : Panel
 {
-	public string TimeLeft => $"{ Math.Max( 0, Game.Current.RoundTimer - Time.Now ).CeilToInt() }";
-
 	public Label TimeLbl;
 	public Panel timeHud;
 

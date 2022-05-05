@@ -9,8 +9,6 @@ using Sandbox;
 [Hammer.RenderFields]
 partial class BreakableWall : AnimEntity
 {
-
-
 	[Property( "Health until break" )] 
 	public float HealthUntilBreak { get; set; }
 

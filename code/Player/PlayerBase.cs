@@ -45,7 +45,7 @@ public partial class PlayerBase : Sandbox.Player
 		Animator = new UCHAnimator();
 		CameraMode = new FirstPersonCamera();
 
-		base.Respawn();
+		base.Spawn();
 	}
 
 	public override void Respawn()
@@ -70,15 +70,22 @@ public partial class PlayerBase : Sandbox.Player
 		base.Respawn();
 
 		if ( CurrentTeam == TeamEnum.Spectator )
-			SpawnAsGhostAtLocation();
+		{
+			if ( Rand.Int( 1, 100 ) >= 75)
+				SpawnAsFancyGhostAtLocation();
+			else
+				SpawnAsGhostAtLocation();
+		}
 	}
 
-	public override void BuildInput( InputBuilder inputBuilder )
+	public override void FrameSimulate( Client cl )
 	{
 		if ( !CanMove )
 			return;
 
-		base.BuildInput( inputBuilder );
+		EyeRotation = Rotation;
+
+		base.FrameSimulate( cl );
 	}
 
 	public override void Simulate( Client cl )
