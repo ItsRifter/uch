@@ -1,8 +1,9 @@
 ﻿using Sandbox;
+using System.ComponentModel.DataAnnotations;
 
 [Library( "info_mrsaturn_start" )]
 [Hammer.EditorModel( "models/npc/mr_saturn.vmdl" )]
-[Hammer.EntityTool( "Mr Saturn Spawnpoint", "UCH", "Defines a point where mr saturn could potentially spawn at" )]
+[Display( Name = "Mr Saturn Spawnpoint" )]
 
 public class MrSaturnSpawn : Entity
 {

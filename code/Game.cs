@@ -100,15 +100,15 @@ public partial class Game : Sandbox.Game
 
 	public void ChangeMap()
 	{
-		string changeMap = "";
+		/*string changeMap = "";
 		changeMap = maps[Rand.Int( 0, maps.Count - 1 )];
 		
 		if( changeMap == Global.MapName )
 		{
 			while ( changeMap == Global.MapName )
 				changeMap = maps[Rand.Int( 0, maps.Count - 1 )];
-		}
+		}*/
 
-		Global.ChangeLevel( changeMap );
+		Global.ChangeLevel( "rifter.club_titiboo" );
 	}
 }

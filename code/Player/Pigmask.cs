@@ -76,6 +76,8 @@ partial class PlayerBase
 
 		StaminaAmount = StaminaMaxAmount;
 
+		RenderColor = RenderColor.WithAlpha( 1.0f );
+
 		using ( Prediction.Off() )
 			Game.Current.PlaySoundToClient( To.Single( this ), spawnSound );
 

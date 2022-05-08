@@ -1,8 +1,9 @@
 ﻿using Sandbox;
+using System.ComponentModel.DataAnnotations;
 
 [Library( "info_pigmask_start" )]
 [Hammer.EditorModel( "models/player/pigmask/pigmask.vmdl" )]
-[Hammer.EntityTool( "Pigmask Spawnpoint", "UCH", "Defines a point where a pigmask can spawn (or spectator)" )]
+[Display( Name = "Pigmask Spawnpoint" )]
 
 public class PigmaskSpawn : Entity
 {

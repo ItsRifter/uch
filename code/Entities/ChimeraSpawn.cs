@@ -1,8 +1,10 @@
 ﻿using Sandbox;
+using Hammer;
+using System.ComponentModel.DataAnnotations;
 
 [Library( "info_chimera_start" )]
-[Hammer.EditorModel( "models/player/chimera/chimera.vmdl" )]
-[Hammer.EntityTool( "Chimera Spawnpoint", "UCH", "Defines a point where the chimera can spawn" )]
+[EditorModel( "models/player/chimera/chimera.vmdl" )]
+[Display(Name = "Chimera Spawnpoint") ]
 
 public class ChimeraSpawn : Entity
 {

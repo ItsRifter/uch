@@ -64,6 +64,8 @@ partial class PlayerBase
 		Controller = new GhostController();
 		CameraMode = new UCHCamera();
 
+		RenderColor = RenderColor.WithAlpha( 0.0f );
+
 		EnableAllCollisions = false;
 		EnableDrawing = true;
 		EnableHideInFirstPerson = true;
@@ -80,6 +82,8 @@ partial class PlayerBase
 
 		Controller = new GhostController();
 		CameraMode = new UCHCamera();
+
+		RenderColor = RenderColor.WithAlpha( 0.0f );
 
 		EnableAllCollisions = false;
 		EnableDrawing = true;

@@ -42,6 +42,8 @@ partial class PlayerBase
 		EnableShadowInFirstPerson = false;
 		EnableAllCollisions = true;
 
+		RenderColor = RenderColor.WithAlpha( 1.0f );
+
 		using ( Prediction.Off() )
 			Game.Current.PlaySoundToClient( To.Single( this ), "chimera_spawn" );
 

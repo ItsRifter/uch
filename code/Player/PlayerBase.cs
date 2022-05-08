@@ -367,6 +367,7 @@ public partial class PlayerBase : Sandbox.Player
 		if ( CurrentTeam == TeamEnum.Pigmask && dmgInfo.Attacker.IsValid )
 		{
 			EnableDrawing = false;
+			EnableAllCollisions = false;
 			CurrentTeam = TeamEnum.Spectator;
 			Sound.FromEntity( "pig_die", this );
 			Game.Current.PlaySoundToClient( To.Everyone, "pig_killed" );
